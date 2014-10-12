@@ -10,7 +10,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import com.thefjong.factorialautomation.ScienceCraft;
+import com.thefjong.factorialautomation.FactorialAutomation;
 import com.thefjong.factorialautomation.reference.Reference;
 import com.thefjong.factorialautomation.tileentities.TileBase;
 import com.thefjong.factorialautomation.utils.GuiIDs;
@@ -53,7 +53,7 @@ public class BlockContainerBase extends BlockBase implements ITileEntityProvider
 
         if (getGuiID() != GuiIDs.INVALID) {
             if (!world.isRemote)
-                player.openGui(ScienceCraft.instance, getGuiID().ordinal(), world, x, y, z);
+                player.openGui(FactorialAutomation.instance, getGuiID().ordinal(), world, x, y, z);
             return true;
         }
         return false;

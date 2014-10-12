@@ -23,10 +23,10 @@ import cpw.mods.fml.common.network.NetworkRegistry;
  *
  */
 @Mod(modid = Reference.MODID, version = Reference.VERSION, name = Reference.NAME)
-public class ScienceCraft
+public class FactorialAutomation
 {
 	@Instance(Reference.MODID)
-	public static ScienceCraft instance;
+	public static FactorialAutomation instance;
 	
 	@SidedProxy(clientSide = Reference.PROXY_LOCATION + ".ClientProxy", serverSide = Reference.PROXY_LOCATION + ".CommonProxy")
 	public static IProxyHandler proxy;
