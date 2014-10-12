@@ -18,6 +18,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import com.thefjong.factorialautomation.reference.ReferenceBlocks;
 import com.thefjong.factorialautomation.tileentities.TileBase;
+import com.thefjong.factorialautomation.tileentities.machines.TileConveyorBelt;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -131,25 +132,12 @@ public class BlockConveyorBelt extends BlockContainerBase {
 	
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x,int y, int z, Entity entity) {
-		
 		TileBase tile = (TileBase) world.getTileEntity(x, y, z);
+		TileConveyorBelt tileConveyor = (TileConveyorBelt) world.getTileEntity(x, y, z);
+			
 			int xx = x+tile.getOrientation().offsetX;
 			int yy = y+tile.getOrientation().offsetY;
 			int zz = z+tile.getOrientation().offsetZ;
-			int slot = 1;
-			if(entity instanceof EntityItem){	
-				if(entity.posX > x+.5 && entity.posZ > z+.5){
-					slot = 1;
-				}else if(entity.posX < x+.5 && entity.posZ > z+.5){
-					slot = 2;
-				}else if(entity.posX > x+.5 && entity.posZ < z+.5){
-					slot = 3;
-				}else if(entity.posX < x+.5 && entity.posZ <z+.5){
-					slot = 4;
-				}else{
-					return;
-				}
-			}
 			
 			int Direction = world.getBlockMetadata(x, y, z);
 			double xMotion = 0;
@@ -160,29 +148,29 @@ public class BlockConveyorBelt extends BlockContainerBase {
 				if(entity.posZ < z + 0.22){			
 					zMotion = 0.2D;
 				}else
-				if(entity.posZ > z + 0.78){			
-					zMotion = -0.2D;
-				}else
-				
-					xMotion = 0.2D;	
+					if(entity.posZ > z + 0.78){			
+						zMotion = -0.2D;
+					}else
+						
+						xMotion = 0.2D;	
 			}
 			else if(Direction == ForgeDirection.SOUTH.ordinal()|| Direction == ReferenceBlocks.ConveyorBelt.RIGHT_TO_DOWN_METADATA_INTEGER || Direction == ReferenceBlocks.ConveyorBelt.LEFT_TO_DOWN_METADATA_INTEGER){
 				if(entity.posX > x + 0.78D){
 					xMotion = -0.2D;
 				}else
-				if(entity.posX < x + 0.22D){
-					xMotion = 0.2D;
-				}else
-					zMotion = 0.2D;	
+					if(entity.posX < x + 0.22D){
+						xMotion = 0.2D;
+					}else
+						zMotion = 0.2D;	
 			}
 			else if(Direction == ForgeDirection.WEST.ordinal()|| Direction == ReferenceBlocks.ConveyorBelt.DOWN_TO_LEFT_METADATA_INTEGER|| Direction == ReferenceBlocks.ConveyorBelt.UP_TO_LEFT_METADATA_INTEGER){
 				if(entity.posZ > z + 0.78D){
 					zMotion = - 0.2D;
 				}else
-				if(entity.posZ < z + 0.22D){
-					zMotion = 0.2D;
-				}else				
-					xMotion = -0.2D;		
+					if(entity.posZ < z + 0.22D){
+						zMotion = 0.2D;
+					}else				
+						xMotion = -0.2D;		
 			}
 			else if(Direction == ForgeDirection.NORTH.ordinal()|| Direction == ReferenceBlocks.ConveyorBelt.RIGHT_TO_UP_METADATA_INTEGER || Direction == ReferenceBlocks.ConveyorBelt.LEFT_TO_UP_METADATA_INTEGER){
 				if(entity.posX < x + 0.22){
@@ -194,14 +182,15 @@ public class BlockConveyorBelt extends BlockContainerBase {
 					zMotion = -0.2D;		
 			}
 			
-		
+			
 			
 			
 			if(entity instanceof EntityPlayer){			
 				entity.motionX = xMotion;
 				entity.motionZ = zMotion;				
 				((EntityPlayer)entity).fallDistance = 0;
-			}
+			
+		}
 	}
 	
 	@Override
@@ -210,10 +199,6 @@ public class BlockConveyorBelt extends BlockContainerBase {
 		return false;
 	}
 	
-	public int getMetaData(World world,int x, int y, int z){
-		
-		return world.getBlockMetadata(x, y, z);
-	}
 	public boolean hasNext(World world, int x, int y, int z){
 		
 		TileBase tile = (TileBase) world.getTileEntity(x, y, z);
@@ -235,33 +220,14 @@ public class BlockConveyorBelt extends BlockContainerBase {
 				
 	}
 	
-	public AxisAlignedBB getAxisFromSlot(int slot, int x, int y, int z){
-		if(slot == 1){
-			
-			return AxisAlignedBB.getBoundingBox(x + .5, y + 0, z + .5, x + 1, y + 1,z + 1);
-		}else
-		if(slot == 2){
-			
-			return AxisAlignedBB.getBoundingBox(x + 0, y + 0, z + .5, x + .5, y + 1,z + 1);
-		}else
-		if(slot == 3){
-			
-			return AxisAlignedBB.getBoundingBox(x + .5, y + 0, z + 0, x + 1, y + 1,z + .5);
-		}else
-		if(slot == 4){
-			
-			return AxisAlignedBB.getBoundingBox(x + 0, y + 0, z + 0, x + .5, y + 1,z + .5);
-		}
-			
-		return null;
-	}
 	
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z,EntityPlayer player, int par6, float par7, float par8, float par9) {
 		if(player.isSneaking()){
 			return true;
 		}
-		System.out.println(world.getBlockMetadata(x, y, z));
+		TileConveyorBelt tile = ((TileConveyorBelt)world.getTileEntity(x, y, z));
+		
 		if(player.inventory.getCurrentItem() != null){
 			if(player.inventory.getCurrentItem().getItem() == Items.stick){
 				rotateByWrench(world, x, y, z);
