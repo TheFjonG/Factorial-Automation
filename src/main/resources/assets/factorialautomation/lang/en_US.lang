@@ -1,0 +1,4 @@
+tile.powernode_buildcraft.name=Buildcraft Power Node
+tile.powernode_industrialcraft.name=IndustrialCraft Power Node
+tile.powernode_pneumaticcraft.name=PneumaticCraft Power Node
+itemGroup.Power Nodes=Power Nodes

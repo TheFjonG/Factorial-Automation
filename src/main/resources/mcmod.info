@@ -1,0 +1,16 @@
+[
+{
+  "modid": "factorialautomation",
+  "name": "Factorial Automation",
+  "description": "[WIP]",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["TheFjong","MineMaarten"],
+  "credits": "TheFjong","MineMaarten"
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
