@@ -1,11 +1,11 @@
 ## gradle
 /.gradle
 /build
-/gradle
 
 ## Other
 /dep
-
+/config
+/logs
 ## eclipse
 /eclipse
 /.settings
