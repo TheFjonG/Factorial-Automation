@@ -6,15 +6,14 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.qmunity.lib.tileentity.TileBase;
+import com.thefjong.factorialautomation.client.render.RenderConveyorBelt;
 import com.thefjong.factorialautomation.reference.ReferenceBlocks;
 import com.thefjong.factorialautomation.tileentities.machines.TileConveyorBelt;
-import com.thefjong.factorialautomation.utils.CustomIconFlipped;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -29,30 +28,8 @@ public class BlockConveyorBelt extends BlockContainerBase{
     }
 
     @Override
-    public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side){
-        CustomIconFlipped icon = null;
-        if(side == ForgeDirection.UP.ordinal()) {
-            TileConveyorBelt belt = (TileConveyorBelt)world.getTileEntity(x, y, z);
-            ForgeDirection facingDir = belt.getFacingDirection();
-
-            icon = new CustomIconFlipped(blockIcon);
-
-            switch(facingDir){
-                case NORTH:
-                    break;
-                case SOUTH:
-                    icon.setMinU(icon.getInterpolatedV(0));
-                    icon.setMaxU(icon.getInterpolatedV(16));
-                    icon.setMinV(icon.getInterpolatedU(16));
-                    icon.setMaxV(icon.getInterpolatedU(0));
-                    break;
-                case EAST:
-
-                case WEST:
-
-            }
-        }
-        return icon;
+    public int getRenderType(){
+        return RenderConveyorBelt.RENDER_ID;
     }
 
     @Override
@@ -103,7 +80,7 @@ public class BlockConveyorBelt extends BlockContainerBase{
         int yy = y + tile.getFacingDirection().offsetY;
         int zz = z + tile.getFacingDirection().offsetZ;
 
-        int Direction = tile.getFacingDirection().ordinal();
+        int Direction = tile.getFacingDirection().getOpposite().ordinal();
         double xMotion = 0;
         double yMotion = 0;
         double zMotion = 0;

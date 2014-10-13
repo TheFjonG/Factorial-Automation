@@ -1,44 +1,30 @@
 package com.thefjong.factorialautomation.proxies;
 
-import com.thefjong.factorialautomation.handlers.IProxyHandler;
+import net.minecraftforge.common.MinecraftForge;
+
 import com.thefjong.factorialautomation.handlers.ModEventHandler;
 
 import cpw.mods.fml.common.FMLCommonHandler;
-import net.minecraft.client.model.ModelBiped;
-import net.minecraftforge.common.MinecraftForge;
 
 /**
  * 
  * @author The Fjong
  *
  */
-public class CommonProxy implements IProxyHandler{
-	
-	
-	public ModelBiped getModelBiped(String Type){
-		return null;
-	}
-	
-	public void registerRenders(){
-		
-	}
+public class CommonProxy{
 
-	@Override
-	public void registerKeybindings() {
-	
-		
-	}
+    public void preInit(){
 
-	@Override
-	public void registerEventHandlers() {
-		ModEventHandler eventHook = new ModEventHandler();
+    }
+
+    public void registerEventHandlers(){
+        ModEventHandler eventHook = new ModEventHandler();
         FMLCommonHandler.instance().bus().register(eventHook);
-        MinecraftForge.EVENT_BUS.register(eventHook);	
-	}
+        MinecraftForge.EVENT_BUS.register(eventHook);
+    }
 
-	@Override
-	public void registerTileEntities() {
-		// TODO Auto-generated method stub
-		
-	}
+    public void registerTileEntities(){
+        // TODO Auto-generated method stub
+
+    }
 }
