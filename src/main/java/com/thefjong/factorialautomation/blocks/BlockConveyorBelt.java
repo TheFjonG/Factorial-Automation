@@ -4,14 +4,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -19,83 +14,58 @@ import net.minecraftforge.common.util.ForgeDirection;
 import com.thefjong.factorialautomation.reference.ReferenceBlocks;
 import com.thefjong.factorialautomation.tileentities.TileBase;
 import com.thefjong.factorialautomation.tileentities.machines.TileConveyorBelt;
+import com.thefjong.factorialautomation.utils.CustomIconFlipped;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockConveyorBelt extends BlockContainerBase {
-	IIcon[] blockIcons;
-	IIcon[] rotatedBlockIcons;
 	
+	
+	@SuppressWarnings("rawtypes")
 	public BlockConveyorBelt(String name, Class TileEntity) {
 		super(Material.iron, name, TileEntity);
 		setBlockBounds(0F, 0F, 0F, 1F, 0.0065F, 1F);
-		blockIcons = new IIcon[4];
-		rotatedBlockIcons = new IIcon[8];
+
 	}
 	
 	@Override
 	public IIcon getIcon(int side, int meta) {
-		if(side == ForgeDirection.UP.ordinal()){		
+		CustomIconFlipped icon = null;
+		if(side == ForgeDirection.UP.ordinal()){	
+			
+			icon = new CustomIconFlipped(this.blockIcon);
+		
 			if(meta == ReferenceBlocks.ConveyorBelt.NORTH_METADATA_INTEGER){
 				
-				return blockIcons[1];
+				
 			}
 			if(meta == ReferenceBlocks.ConveyorBelt.SOUTH_METADATA_INTEGER){
-				return blockIcons[0];
+				
+				icon.setMinU(icon.getInterpolatedV(0));
+				icon.setMinV(icon.getInterpolatedV(16));
+				icon.setMaxV(icon.getInterpolatedU(0));
 			}
 			if(meta == ReferenceBlocks.ConveyorBelt.WEST_METADATA_INTEGER){
-				return blockIcons[3];
+				
+				
+				
 			}
 			if(meta == ReferenceBlocks.ConveyorBelt.EAST_METADATA_INTEGER){
-				return blockIcons[2];
+				
 			}
-			if(meta == ReferenceBlocks.ConveyorBelt.DOWN_TO_LEFT_METADATA_INTEGER){
-				return rotatedBlockIcons[0];
-			}
-			if(meta == ReferenceBlocks.ConveyorBelt.DOWN_TO_RIGHT_METADATA_INTEGER){
-				return rotatedBlockIcons[1];
-			}
-			if(meta == ReferenceBlocks.ConveyorBelt.UP_TO_LEFT_METADATA_INTEGER){
-				return rotatedBlockIcons[2];
-			}
-			if(meta == ReferenceBlocks.ConveyorBelt.UP_TO_RIGHT_METADATA_INTEGER){
-				return rotatedBlockIcons[3];
-			}
-			if(meta == ReferenceBlocks.ConveyorBelt.RIGHT_TO_UP_METADATA_INTEGER){
-				return rotatedBlockIcons[4];
-			}
-			if(meta == ReferenceBlocks.ConveyorBelt.RIGHT_TO_DOWN_METADATA_INTEGER){
-				return rotatedBlockIcons[5];
-			}
-			if(meta == ReferenceBlocks.ConveyorBelt.LEFT_TO_UP_METADATA_INTEGER){
-				return rotatedBlockIcons[6];
-			}
-			if(meta == ReferenceBlocks.ConveyorBelt.LEFT_TO_DOWN_METADATA_INTEGER){
-				return rotatedBlockIcons[7];
-			}
+			
+			
+			
 		}
-		return blockIcon;
+		return icon;
 	}
 	
 	@Override
 	public void registerBlockIcons(IIconRegister register) {
-		for(int i = 0; i < blockIcons.length; i++){
-			blockIcons[i] = register.registerIcon(getTextureName()+"_"+i);
+	
+			this.blockIcon = register.registerIcon(getTextureName()+"_1");
 			
-		}
-		//DOWN
-		rotatedBlockIcons[0] = register.registerIcon(getTextureName()+"_" + "13");
-		rotatedBlockIcons[1] = register.registerIcon(getTextureName()+"_" + "12");
-		//UP
-		rotatedBlockIcons[2] = register.registerIcon(getTextureName()+"_" + "03");
-		rotatedBlockIcons[3] = register.registerIcon(getTextureName()+"_" + "02");
-		//RIGHT
-		rotatedBlockIcons[4] = register.registerIcon(getTextureName()+"_" + "31");
-		rotatedBlockIcons[5] = register.registerIcon(getTextureName()+"_" + "30");
-		//LEFT
-		rotatedBlockIcons[6] = register.registerIcon(getTextureName()+"_" + "21");
-		rotatedBlockIcons[7] = register.registerIcon(getTextureName()+"_" + "20");
 	}
 	
 	@Override

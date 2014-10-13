@@ -2,6 +2,7 @@ package com.thefjong.factorialautomation.utils;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 import com.thefjong.factorialautomation.items.Items;
 /**
@@ -24,10 +25,18 @@ public class CustomTabs{
 
 	public static CreativeTabs forItems = new CreativeTabs(CreativeTabs.getNextID(),"sciencecraft.items") {
 		
+		
+
+		
+		public ItemStack getIconItemStack() {
+			
+			return new ItemStack(Items.Upgrades,1,8);
+		}
+
 		@Override
 		public Item getTabIconItem() {
-			return Items.Upgrades;
-		}
+			return null;
+		};
 		
 	};
 	
