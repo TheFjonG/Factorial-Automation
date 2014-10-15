@@ -24,7 +24,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class TileConveyorBelt extends TileBase {
 
-    private static final double MIN_ITEM_DISTANCE = 0.2;
+    private static final double MIN_ITEM_DISTANCE = 0.2001;
     private static final int MAX_STACK_SIZE = 1;// If increasing, check logic.
     public final List<BeltStack> beltStacks = new ArrayList<BeltStack>();
     public ForgeDirection entryDirection = ForgeDirection.NORTH;
@@ -43,9 +43,31 @@ public class TileConveyorBelt extends TileBase {
         Iterator<BeltStack> stacks = beltStacks.iterator();
         while (stacks.hasNext()) {
             BeltStack stack = stacks.next();
-            if (stack.update())
-                stacks.remove();
+            if (stack.update()) {
+                if (!worldObj.isRemote) {
+                    ForgeDirection d = getFacingDirection().getOpposite();
+                    TileEntity te = worldObj.getTileEntity(xCoord + d.offsetX, yCoord + d.offsetY, zCoord + d.offsetZ);
+                    if (te instanceof TileConveyorBelt) {
+                        TileConveyorBelt belt = (TileConveyorBelt) te;
+                        double oldProgress = stack.progress;
+                        if (belt.entryDirection == d) {
+                            stack.progress = 0;
+                            stack.isOnFirstPart = true;
+                            if (belt.addBeltStack(stack)) {
+                                stacks.remove();
+                                sendUpdatePacket();
+                                continue;
+                            }
+                        }
+                        stack.progress = oldProgress;
+                        stack.isOnFirstPart = false;
+                        stack.setConveyor(this);
+                    }
+                }
+
+            }
         }
+        // sendUpdatePacket();
     }
 
     public boolean addItem(EntityItem item) {
@@ -82,22 +104,29 @@ public class TileConveyorBelt extends TileBase {
             leftSide = rot.offsetX == offX;
             progress = 0.75;
         }
-        BeltStack stack = new BeltStack(item.copy().splitStack(MAX_STACK_SIZE), leftSide);
+        BeltStack stack = new BeltStack(this, item.copy().splitStack(MAX_STACK_SIZE), leftSide);
         stack.progress = progress;
 
-        if (stack.getMaxMovement() >= getSpeed()) {
-            addBeltStack(stack);
+        if (addBeltStack(stack)) {
             item.stackSize -= MAX_STACK_SIZE;
             return true;
         } else {
             return false;
         }
+
     }
 
-    private void addBeltStack(BeltStack stack) {
+    private boolean addBeltStack(BeltStack stack) {
         // QLog.info("stack: " + stack.progress + " , " + stack.isOnLeftSide);
-        beltStacks.add(stack);
-        sendUpdatePacket();
+        stack.setConveyor(this);
+        if (stack.getMaxMovement() > 0) {
+            beltStacks.add(stack);
+            sendUpdatePacket();
+            return true;
+
+        } else {
+            return false;
+        }
     }
 
     protected double getSpeed() {
@@ -195,37 +224,46 @@ public class TileConveyorBelt extends TileBase {
     }
 
     private BeltStack loadBeltStackFromNBT(NBTTagCompound tag) {
-        BeltStack stack = new BeltStack(ItemStack.loadItemStackFromNBT(tag.getCompoundTag("stack")), tag.getBoolean("isOnLeftSide"));
+        BeltStack stack = new BeltStack(this, ItemStack.loadItemStackFromNBT(tag.getCompoundTag("stack")), tag.getBoolean("isOnLeftSide"));
         stack.isOnFirstPart = tag.getBoolean("isOnFirstPart");
         stack.progress = tag.getDouble("progress");
         return stack;
     }
 
-    public class BeltStack {
+    public static class BeltStack {
         public ItemStack stack;
         public boolean isOnFirstPart;
         public boolean isOnLeftSide;
         public double progress;
         private double oldProgress;
+        private TileConveyorBelt conveyorBelt;
 
-        public BeltStack(ItemStack stack, boolean isOnLeftSide) {
+        public BeltStack(TileConveyorBelt conveyor, ItemStack stack, boolean isOnLeftSide) {
             this.stack = stack;
             this.isOnLeftSide = isOnLeftSide;
             isOnFirstPart = true;
+            conveyorBelt = conveyor;
+        }
+
+        public void setConveyor(TileConveyorBelt conveyor) {
+            conveyorBelt = conveyor;
         }
 
         public boolean update() {
             oldProgress = progress;
+            // if (!conveyorBelt.worldObj.isRemote) {
             double move = getMaxMovement();
-            isOnFirstPart = progress(move);
-            return false;// progress >= 1;
+            if (move > 0)
+                isOnFirstPart = progress(move);
+            // }
+            return progress >= 1;
         }
 
         public boolean progress(double progression) {
             progress += progression;
             if (isOnFirstPart) {
                 boolean onFirstPart = true;
-                switch (getSection()) {
+                switch (conveyorBelt.getSection()) {
                 case LEFT:
                     if (progress >= (isOnLeftSide ? 0.25 : 0.75)) {
                         progress = 1 - progress;
@@ -244,34 +282,42 @@ public class TileConveyorBelt extends TileBase {
                     }
                     break;
                 }
-                if (!onFirstPart)
+                if (!onFirstPart) {
                     oldProgress = progress -= progression;
+                    return false;
+                }
             }
-            return false;
+            return isOnFirstPart;
         }
 
         public double getMaxMovement() {
-            double maxMove = Math.min(getSpeed(), 1 - progress);
-            for (BeltStack s : beltStacks) {
+            double maxMove = Math.min(conveyorBelt.getSpeed(), 1 - progress);
+            for (BeltStack s : conveyorBelt.beltStacks) {
                 if (s != this && s.isOnLeftSide == isOnLeftSide) {
                     if (isOnFirstPart && !s.isOnFirstPart) {
+
                         double oldProgress = progress;
+                        double oldOldProgress = this.oldProgress;
                         if (!progress(maxMove)) {
-                            double dX = s.progress - progress;
+                            double dX = s.progress - progress - MIN_ITEM_DISTANCE;
                             if (dX < 0) {
                                 maxMove += dX;
                             }
                         }
                         progress = oldProgress;
-                        if (maxMove <= 0)
+                        this.oldProgress = oldOldProgress;
+                        if (maxMove <= 0) {
                             return 0;
+                        }
 
-                    } else if (isOnFirstPart == s.isOnFirstPart) {
+                    }
+                    if (isOnFirstPart == s.isOnFirstPart) {
                         double dX = s.progress - progress;
                         if (dX >= 0) {
                             maxMove = Math.min(maxMove, dX - MIN_ITEM_DISTANCE);
-                            if (maxMove <= 0)
+                            if (maxMove <= 0) {
                                 return 0;
+                            }
                         }
                     }
                 }
@@ -310,7 +356,7 @@ public class TileConveyorBelt extends TileBase {
             renderedItem.setEntityItemStack(stack);
 
             double renderProgress = (oldProgress + (progress - oldProgress) * partialTick) * 2 - 1;
-            ForgeDirection heading = isOnFirstPart ? entryDirection : getFacingDirection().getOpposite();
+            ForgeDirection heading = isOnFirstPart ? conveyorBelt.entryDirection : conveyorBelt.getFacingDirection().getOpposite();
 
             GL11.glPushMatrix();
             GL11.glTranslated(heading.offsetX * renderProgress * 0.5, -0.35, heading.offsetZ * renderProgress * 0.5);
