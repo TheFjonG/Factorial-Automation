@@ -1,11 +1,11 @@
 package com.thefjong.factorialautomation.proxies;
 
+import net.minecraftforge.common.MinecraftForge;
+
 import com.thefjong.factorialautomation.handlers.IProxyHandler;
 import com.thefjong.factorialautomation.handlers.ModEventHandler;
 
 import cpw.mods.fml.common.FMLCommonHandler;
-import net.minecraft.client.model.ModelBiped;
-import net.minecraftforge.common.MinecraftForge;
 
 /**
  * 
@@ -14,10 +14,6 @@ import net.minecraftforge.common.MinecraftForge;
  */
 public class CommonProxy implements IProxyHandler{
 	
-	
-	public ModelBiped getModelBiped(String Type){
-		return null;
-	}
 	
 	public void registerRenders(){
 		
