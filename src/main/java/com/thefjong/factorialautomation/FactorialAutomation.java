@@ -2,6 +2,7 @@ package com.thefjong.factorialautomation;
 
 import org.apache.logging.log4j.Logger;
 
+import com.qmunity.lib.util.QLog;
 import com.thefjong.factorialautomation.blocks.Blocks;
 import com.thefjong.factorialautomation.handlers.GuiHandler;
 import com.thefjong.factorialautomation.items.Items;
@@ -30,7 +31,7 @@ public class FactorialAutomation{
 
     @SidedProxy(clientSide = Reference.PROXY_LOCATION + ".ClientProxy", serverSide = Reference.PROXY_LOCATION + ".CommonProxy")
     public static CommonProxy proxy;
-    public static Logger log;
+    public static Logger log = QLog.logger;
 
     @EventHandler
     private void preinit(FMLPreInitializationEvent event){
@@ -39,7 +40,7 @@ public class FactorialAutomation{
         Items.init();
         Items.registerInit();
         TileEntities.registerTiles();
-        log = event.getModLog();
+        
         proxy.preInit();
 
     }
