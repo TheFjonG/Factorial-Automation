@@ -38,7 +38,13 @@ public class CommonProxy implements IProxyHandler{
 
 	@Override
 	public void registerTileEntities() {
-		// TODO Auto-generated method stub
+		
 		
 	}
+
+    @Override
+    public void preInit() {
+       
+        
+    }
 }
