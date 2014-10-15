@@ -11,8 +11,8 @@ import net.minecraft.world.World;
  */
 public class KnowledgeHandler {
 	
-	public String _playerName;
-	public PlayerKnowledge _playerKnowledge;
+	public String playerName;
+	public PlayerKnowledge playerKnowledge;
 	
 	public KnowledgeHandler(String playerName){
 		
@@ -22,65 +22,78 @@ public class KnowledgeHandler {
 		PlayerKnowledge playerKnowledge = (PlayerKnowledge) world.loadItemData(PlayerKnowledge.class, playerName);
 		
 		if(playerKnowledge == null){
+			
 			playerKnowledge = new PlayerKnowledge(playerName);
 			world.setItemData(playerName, playerKnowledge);
 			System.out.println(playerKnowledge.toString());
 		}
-			_playerName = playerName;
-			_playerKnowledge = playerKnowledge;
-			_playerKnowledge.markDirty();
+			this.playerName = playerName;
+			this.playerKnowledge = playerKnowledge;
+			this.playerKnowledge.markDirty();
 	}
 	
 	public PlayerKnowledge getPlayerProfile(){
 		
-		return _playerKnowledge;
+		return playerKnowledge;
 	}
 	public double getKnowledgeXP(){	
+		
 		if(MinecraftServer.getServer() == null) return 0;
-		return _playerKnowledge.getKnowledgeXP();
+		return playerKnowledge.getKnowledgeXP();
 	}
 	
 	public int getKnowledgeRank(){
+		
 		if(MinecraftServer.getServer() == null) return 0;
-		return _playerKnowledge.getKnowledgeRank();
+		return playerKnowledge.getKnowledgeRank();
 	}
 	
 	public void setKnowledgeXP(double xp){
+		
 		if(MinecraftServer.getServer() == null) return;
-		_playerKnowledge.knowledgeXP = xp;
-		_playerKnowledge.markDirty();
+		playerKnowledge.knowledgeXP = xp;
+		playerKnowledge.markDirty();
 	}
 	
 	public void setKnowledgeRank(int rank){
+		
 		if(MinecraftServer.getServer() == null) return;
-		_playerKnowledge.knowledgeRank = rank;
-		_playerKnowledge.markDirty();
+		playerKnowledge.knowledgeRank = rank;
+		playerKnowledge.markDirty();
 	}
 	
 	public void addKnowledgeXP(double xp){
+		
 		if(MinecraftServer.getServer() == null) return;
-		_playerKnowledge.knowledgeXP += xp;
-		_playerKnowledge.markDirty();
+		playerKnowledge.knowledgeXP += xp;
+		playerKnowledge.markDirty();
 		UpdateXP();
 	}
 	
 	public void addKnowledgeRank(int rank){
+		
 		if(MinecraftServer.getServer() == null) return;
-		_playerKnowledge.knowledgeRank += rank;
-		_playerKnowledge.markDirty();
+		playerKnowledge.knowledgeRank += rank;
+		playerKnowledge.markDirty();
 	}
 	public void markDirty(){
-		_playerKnowledge.markDirty();
+		
+		playerKnowledge.markDirty();
 	}
 	public void UpdateXP(){
+		
 		if(getKnowledgeXP() >= getKnowledgeRank()*600){
 			setKnowledgeXP(0);
 			setKnowledgeRank(getKnowledgeRank()+1);
 		}
 	}
+	public String getDisplayName(){
+		
+		return playerName;
+	}
 	@Override
 	public String toString(){
 	
-		return String.format("[Player Name] %s , [Player Knowledge XP] %s , [Player Knowledge Rank] %s", _playerName, _playerKnowledge.getKnowledgeXP(), _playerKnowledge.getKnowledgeRank());
+		return String.format("[Player Name] %s , [Player Knowledge XP] %s , [Player Knowledge Rank] %s", playerName, playerKnowledge.getKnowledgeXP(), playerKnowledge.getKnowledgeRank());
 	}
 }

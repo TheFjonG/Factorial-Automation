@@ -21,7 +21,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockConveyorBelt extends BlockContainerBase{
 
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public BlockConveyorBelt(String name, Class TileEntity){
         super(Material.iron, name, TileEntity);
         setBlockBounds(0F, 0F, 0F, 1F, 0.0065F, 1F);

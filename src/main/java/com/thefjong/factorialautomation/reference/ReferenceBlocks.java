@@ -11,7 +11,12 @@ public class ReferenceBlocks {
 	
 	public static final String RESEARCH_LAB_NAME = "researchlab";
 	public static final String CONVEYOR_BELT_NAME = "conveyorbelt";
-	
+	public static final String ENERGY_POLE_NAME = "energypole";
+	public static final String PUMP_NAME = "pump";
+	public static final String PIPE_NAME = "pipe";
+	public static final String BOILER_NAME = "boiler";
+	public static final String STEAM_ENGINE_NAME = "steamengine";
+	public static final String STEAM_FLUID_NAME = "steamfluid";
 	
 	public static class ConveyorBelt extends ReferenceBlocks{
 		public static final int SOUTH_METADATA_INTEGER = ForgeDirection.SOUTH.ordinal();

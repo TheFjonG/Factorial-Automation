@@ -5,47 +5,21 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import com.qmunity.lib.tileentity.TileBase;
-import com.thefjong.factorialautomation.handlers.KnowledgeHandler;
 import com.thefjong.factorialautomation.items.ItemSciencePack;
 import com.thefjong.factorialautomation.items.ItemUpgrades;
 import com.thefjong.factorialautomation.reference.ReferenceBlocks;
+import com.thefjong.factorialautomation.utils.TileEntityOwnable;
 
 /**
  * 
  * @author The Fjong
  *
  */
-public class TileResearchLab extends TileBase implements IInventory{
-
-    public KnowledgeHandler playerOwner = null;
-    public String playerOwnerName;
-
-    public void setPlayerOwner(KnowledgeHandler owner){
-
-        playerOwnerName = owner.getPlayerProfile().playerName;
-        playerOwner = owner;
-    }
-
-    public KnowledgeHandler getPlayerOwner(){
-
-        return playerOwner;
-    }
-
-    @Override
-    public void readFromNBT(NBTTagCompound tCompound){
-
-        playerOwnerName = tCompound.getString("playerOwnerName");
-        for(ItemStack itemStack : itemStacks) {
-            itemStack.readFromNBT(tCompound);
-        }
-        super.readFromNBT(tCompound);
-    }
+public class TileResearchLab extends TileEntityOwnable implements IInventory{
 
     @Override
     public void writeToNBT(NBTTagCompound tCompound){
 
-        tCompound.setString(playerOwnerName, "playerOwnerName");
         for(ItemStack itemStack : itemStacks) {
             itemStack.writeToNBT(tCompound);
         }
@@ -55,7 +29,6 @@ public class TileResearchLab extends TileBase implements IInventory{
     @Override
     protected void onTileLoaded(){
 
-        playerOwner = new KnowledgeHandler(playerOwnerName);
         super.onTileLoaded();
     }
 
@@ -133,9 +106,7 @@ public class TileResearchLab extends TileBase implements IInventory{
     @Override
     public boolean isUseableByPlayer(EntityPlayer player){
 
-        if(player.getDisplayName() == playerOwnerName) return true;
-
-        return false;
+        return true;
     }
 
     @Override
