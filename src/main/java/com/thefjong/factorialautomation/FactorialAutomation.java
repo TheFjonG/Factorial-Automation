@@ -17,43 +17,43 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
+
 /**
- * 
+ *
  * @author The Fjong
  *
  */
 @Mod(modid = Reference.MODID, version = Reference.VERSION, name = Reference.NAME)
-public class FactorialAutomation
-{
-	@Instance(Reference.MODID)
-	public static FactorialAutomation instance;
-	
-	@SidedProxy(clientSide = Reference.PROXY_LOCATION + ".ClientProxy", serverSide = Reference.PROXY_LOCATION + ".CommonProxy")
-	public static IProxyHandler proxy;
-	public static Logger log;
-    
+public class FactorialAutomation {
+
+    @Instance(Reference.MODID)
+    public static FactorialAutomation instance;
+
+    @SidedProxy(clientSide = Reference.PROXY_LOCATION + ".ClientProxy", serverSide = Reference.PROXY_LOCATION + ".CommonProxy")
+    public static IProxyHandler proxy;
+    public static Logger log;
+
     @EventHandler
-    private void preinit(FMLPreInitializationEvent event){
-    	
-    	Blocks.init();
-		Items.init();
-		Items.registerInit();
-		TileEntities.registerTiles();
-		log = event.getModLog();
-		
-		
-        
-	}
-    
-    @EventHandler
-    public void init(FMLInitializationEvent event){
-    	proxy.registerEventHandlers();
-    	NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
+    private void preinit(FMLPreInitializationEvent event) {
+
+        Blocks.init();
+        Items.init();
+        Items.registerInit();
+        TileEntities.registerTiles();
+        log = event.getModLog();
+
     }
-    
+
+    @EventHandler
+    public void init(FMLInitializationEvent event) {
+
+        proxy.registerEventHandlers();
+        proxy.registerRenders();
+        NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
+    }
+
     @EventHandler
     private void postinit(FMLPostInitializationEvent event) {
-		
-    
-	}
+
+    }
 }

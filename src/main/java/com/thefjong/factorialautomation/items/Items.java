@@ -1,25 +1,30 @@
 package com.thefjong.factorialautomation.items;
 
-import com.thefjong.factorialautomation.reference.ReferenceItems;
-
 import net.minecraft.item.Item;
 
-public class Items{
-	
-	public static Item BrainFragment;
-	public static Item Brain;
-	public static Item KnowledgeMeter;
-	public static Item InventorsHat;
-	public static Item SciencePack;
-	public static Item Upgrades;
-	
-	public static void init(){
-		
-		SciencePack = new ItemSciencePack(ReferenceItems.SCIENCE_PACK_NAME);
-		Upgrades = new ItemUpgrades(ReferenceItems.UPGRADES_NAME);
-	}
-	
-	public static void registerInit(){
-		
-	}
+import com.thefjong.factorialautomation.reference.ReferenceItems;
+
+public class Items {
+
+    public static Item brainfragment;
+    public static Item brain;
+    public static Item knowledgemeter;
+    public static Item inventorshat;
+    public static Item sciencepack;
+    public static Item upgradespeed;
+    public static Item upgradeeffectivity;
+    public static Item upgradeproductivity;
+
+    public static void init() {
+
+        sciencepack = new ItemBaseMeta(ReferenceItems.SCIENCE_PACK_NAME, 4);
+
+        upgradespeed = new ItemBaseMeta3D(ReferenceItems.UPGRADE_SPEED_NAME, 3, true);
+        upgradeeffectivity = new ItemBaseMeta3D(ReferenceItems.UPGRADE_EFFECTIVITY_NAME, 3, true);
+        upgradeproductivity = new ItemBaseMeta3D(ReferenceItems.UPGRADE_PRODUCTIVITY_NAME, 3, true);
+    }
+
+    public static void registerInit() {
+
+    }
 }
