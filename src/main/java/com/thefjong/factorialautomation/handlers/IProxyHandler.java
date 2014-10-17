@@ -9,4 +9,6 @@ public interface IProxyHandler {
 	public abstract void registerEventHandlers();
 	
 	public abstract void registerTileEntities();
+
+    public void preInit();
 }

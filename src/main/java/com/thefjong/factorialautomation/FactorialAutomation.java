@@ -34,14 +34,16 @@ public class FactorialAutomation {
     public static Logger log;
 
     @EventHandler
-    private void preinit(FMLPreInitializationEvent event) {
+    private void preInit(FMLPreInitializationEvent event) {
 
         Blocks.init();
         Items.init();
         Items.registerInit();
         TileEntities.registerTiles();
-        log = event.getModLog();
 
+        proxy.preInit();
+
+        log = event.getModLog();
     }
 
     @EventHandler
@@ -53,7 +55,7 @@ public class FactorialAutomation {
     }
 
     @EventHandler
-    private void postinit(FMLPostInitializationEvent event) {
+    public void postInit(FMLPostInitializationEvent event) {
 
     }
 }
