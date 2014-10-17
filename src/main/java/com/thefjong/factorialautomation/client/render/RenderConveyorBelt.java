@@ -112,6 +112,7 @@ public class RenderConveyorBelt extends TileEntitySpecialRenderer implements ISi
 
     @Override
     public void renderTileEntityAt(TileEntity te, double x, double y, double z, float partialTick) {
+
         GL11.glPushMatrix();
         GL11.glTranslated(x + 0.5, y + 0.5, z + 0.5);
         for (TileConveyorBelt.BeltStack stack : ((TileConveyorBelt) te).beltStacks) {

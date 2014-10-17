@@ -14,125 +14,133 @@ import net.minecraftforge.fluids.IFluidTank;
 
 import com.qmunity.lib.tileentity.TileBase;
 
-public class TilePipe extends TileBase implements IFluidTank, IFluidHandler{
-    
-    /** Do not use this!.. use tank.getFluid() instead!**/
+public class TilePipe extends TileBase implements IFluidTank, IFluidHandler {
+
+    /** Do not use this!.. use tank.getFluid() instead! **/
     private FluidStack fluidStack;
     public int capacity = 1000;
     public FluidTank tank = new FluidTank(fluidStack, capacity);
-    
+
     @Override
     public FluidStack getFluid() {
-       
+
         return fluidStack;
     }
 
-
     @Override
     public int getFluidAmount() {
-        
+
         return tank.getFluidAmount();
     }
 
-
     @Override
     public int getCapacity() {
-       
+
         return 8000;
     }
 
-
     @Override
     public FluidTankInfo getInfo() {
-        
+
         return tank.getInfo();
     }
 
     @Override
     public int fill(FluidStack resource, boolean doFill) {
-        if(resource.getFluid() != FluidRegistry.WATER) return 0;
+
+        if (resource.getFluid() != FluidRegistry.WATER)
+            return 0;
         return tank.fill(resource, doFill);
     }
 
-
     @Override
     public FluidStack drain(int maxDrain, boolean doDrain) {
-       
+
         return tank.drain(maxDrain, doDrain);
     }
-   
+
     @Override
     public void writeToNBT(NBTTagCompound tCompound) {
+
         tank.writeToNBT(tCompound);
         super.writeToNBT(tCompound);
     }
-    
+
     @Override
     public void readFromNBT(NBTTagCompound tCompound) {
+
         tank = tank.readFromNBT(tCompound);
         super.readFromNBT(tCompound);
     }
 
     @Override
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-      
+
         return fill(resource, doFill);
     }
 
     @Override
     public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
-      
+
         return drain(resource.amount, doDrain);
     }
 
     @Override
     public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-      
+
         return drain(maxDrain, doDrain);
     }
 
     @Override
     public boolean canFill(ForgeDirection from, Fluid fluid) {
-        if(fluid == FluidRegistry.WATER) return true;
+
+        if (fluid == FluidRegistry.WATER)
+            return true;
         return false;
     }
 
     @Override
     public boolean canDrain(ForgeDirection from, Fluid fluid) {
-        if(fluid == FluidRegistry.WATER && from != ForgeDirection.DOWN) return true;
+
+        if (fluid == FluidRegistry.WATER && from != ForgeDirection.DOWN)
+            return true;
         return false;
     }
 
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-        
+
         return new FluidTankInfo[] { tank.getInfo() };
     }
-    
-    public void sendMessageToPlayer(EntityPlayer player){
-        
-        if(!worldObj.isRemote && tank.getFluid() != null)         
-           player.addChatComponentMessage(new ChatComponentText("Fluid Amount: " + tank.getFluidAmount()));
-        
+
+    public void sendMessageToPlayer(EntityPlayer player) {
+
+        if (!worldObj.isRemote && tank.getFluid() != null)
+            player.addChatComponentMessage(new ChatComponentText("Fluid Amount: " + tank.getFluidAmount()));
+
     }
+
     int ticker;
+
     @Override
     public void updateEntity() {
+
         ticker++;
-        if(ticker >3){
-            
+        if (ticker > 3) {
+
             forceMovement();
             ticker = 0;
         }
         super.updateEntity();
     }
-    
-    
-    public void forceMovement(){
-        for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS){
-            if(worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ) instanceof IFluidHandler){
-                IFluidHandler tile = (IFluidHandler)worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
-                if(tank.getFluid() != null && tank.getFluidAmount() > 0){
+
+    public void forceMovement() {
+
+        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+            if (worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ) instanceof IFluidHandler) {
+                IFluidHandler tile = (IFluidHandler) worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord
+                        + dir.offsetZ);
+                if (tank.getFluid() != null && tank.getFluidAmount() > 0) {
                     markDirty();
                     FluidStack fluid = tank.getFluid().copy();
                     fluid.amount = tank.getFluidAmount();
@@ -142,22 +150,26 @@ public class TilePipe extends TileBase implements IFluidTank, IFluidHandler{
             }
         }
     }
-    
-    
-    
-    public IFluidTank getTank(){
-        if(worldObj.isRemote) return null;
+
+    public IFluidTank getTank() {
+
+        if (worldObj.isRemote)
+            return null;
         return tank;
     }
+
     @Override
     protected void onTileLoaded() {
+
         markDirty();
         super.onTileLoaded();
     }
+
     @Override
     public void onBlockNeighbourChanged() {
+
         markDirty();
-        
+
         super.onBlockNeighbourChanged();
     }
 }

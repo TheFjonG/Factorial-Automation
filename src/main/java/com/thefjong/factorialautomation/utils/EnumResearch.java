@@ -6,47 +6,44 @@ import net.minecraft.util.ResourceLocation;
 
 public enum EnumResearch {
     ;
-    
-    
-    
-    
-    
+
     private EnumResearch[] researchNeeded;
     private ResourceLocation texture;
     private Block[] blocksDiscovered;
     private Item[] itemsDiscovered;
-    
-    private EnumResearch(EnumResearch[] researchNeeded, ResourceLocation texture, Block[] blocksDiscovered, Item[] itemsDiscovered){
-        
+
+    private EnumResearch(EnumResearch[] researchNeeded, ResourceLocation texture, Block[] blocksDiscovered, Item[] itemsDiscovered) {
+
         this.researchNeeded = researchNeeded;
         this.texture = texture;
         this.blocksDiscovered = blocksDiscovered;
         this.itemsDiscovered = itemsDiscovered;
     }
-    
-    public EnumResearch[] getResearchNeeded(){
-        
+
+    public EnumResearch[] getResearchNeeded() {
+
         return researchNeeded;
     }
-    
-    public ResourceLocation getTexture(){
-        
+
+    public ResourceLocation getTexture() {
+
         return texture;
     }
-    
-    public Block[] getBlocksDiscovered(){
-        
+
+    public Block[] getBlocksDiscovered() {
+
         return blocksDiscovered;
     }
-    
-    public Item[] getItemsDiscoItems(){
-        
+
+    public Item[] getItemsDiscoItems() {
+
         return itemsDiscovered;
     }
- 
+
     @Override
     public String toString() {
-        
-        return String.format("[ResearchNeeded] %s , [texture] %s , [BlockDiscovered] %s , [ItemsDiscovered] %s", researchNeeded, texture, blocksDiscovered, itemsDiscovered);
+
+        return String.format("[ResearchNeeded] %s , [texture] %s , [BlockDiscovered] %s , [ItemsDiscovered] %s", researchNeeded, texture,
+                blocksDiscovered, itemsDiscovered);
     }
 }

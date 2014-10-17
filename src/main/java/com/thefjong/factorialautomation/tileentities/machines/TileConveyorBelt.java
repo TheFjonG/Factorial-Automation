@@ -39,6 +39,7 @@ public class TileConveyorBelt extends TileBase {
 
     @Override
     public void updateEntity() {
+
         super.updateEntity();
         Iterator<BeltStack> stacks = beltStacks.iterator();
         while (stacks.hasNext()) {
@@ -71,6 +72,7 @@ public class TileConveyorBelt extends TileBase {
     }
 
     public boolean addItem(EntityItem item) {
+
         if (addItem(item.getEntityItem(), item.posX, item.posY, item.posZ)) {
             if (item.getEntityItem().stackSize <= 0) {
                 item.setDead();
@@ -83,6 +85,7 @@ public class TileConveyorBelt extends TileBase {
     }
 
     public boolean addItem(ItemStack item, double x, double y, double z) {
+
         if (worldObj.isRemote)
             return false;
         int offX = x - xCoord < 0.5 ? -1 : 1;
@@ -117,6 +120,7 @@ public class TileConveyorBelt extends TileBase {
     }
 
     private boolean addBeltStack(BeltStack stack) {
+
         // QLog.info("stack: " + stack.progress + " , " + stack.isOnLeftSide);
         stack.setConveyor(this);
         if (stack.getMaxMovement() > 0) {
@@ -130,11 +134,13 @@ public class TileConveyorBelt extends TileBase {
     }
 
     protected double getSpeed() {
+
         return 0.05D;
     }
 
     @Override
     public void onBlockNeighbourChanged() {
+
         super.onBlockNeighbourChanged();
 
         ForgeDirection dir = getFacingDirection().getOpposite();
@@ -154,10 +160,12 @@ public class TileConveyorBelt extends TileBase {
     }
 
     public Section getSection() {
+
         return section;
     }
 
     private void setEntryDirection(ForgeDirection dir) {
+
         if (dir != entryDirection) {
             entryDirection = dir;
 
@@ -176,6 +184,7 @@ public class TileConveyorBelt extends TileBase {
 
     @Override
     public List<ItemStack> getDrops() {
+
         List<ItemStack> drops = super.getDrops();
         for (BeltStack stack : beltStacks) {
             drops.add(stack.stack);
@@ -185,18 +194,21 @@ public class TileConveyorBelt extends TileBase {
 
     @Override
     public void writeToNBT(NBTTagCompound tag) {
+
         super.writeToNBT(tag);
 
     }
 
     @Override
     public void readFromNBT(NBTTagCompound tag) {
+
         super.readFromNBT(tag);
 
     }
 
     @Override
     public void writeToPacketNBT(NBTTagCompound tag) {
+
         super.writeToPacketNBT(tag);
 
         NBTTagList tagList = new NBTTagList();
@@ -212,6 +224,7 @@ public class TileConveyorBelt extends TileBase {
 
     @Override
     public void readFromPacketNBT(NBTTagCompound tag) {
+
         super.readFromPacketNBT(tag);
 
         NBTTagList tagList = tag.getTagList("beltStacks", 10);
@@ -224,6 +237,7 @@ public class TileConveyorBelt extends TileBase {
     }
 
     private BeltStack loadBeltStackFromNBT(NBTTagCompound tag) {
+
         BeltStack stack = new BeltStack(this, ItemStack.loadItemStackFromNBT(tag.getCompoundTag("stack")), tag.getBoolean("isOnLeftSide"));
         stack.isOnFirstPart = tag.getBoolean("isOnFirstPart");
         stack.progress = tag.getDouble("progress");
@@ -231,6 +245,7 @@ public class TileConveyorBelt extends TileBase {
     }
 
     public static class BeltStack {
+
         public ItemStack stack;
         public boolean isOnFirstPart;
         public boolean isOnLeftSide;
@@ -239,6 +254,7 @@ public class TileConveyorBelt extends TileBase {
         private TileConveyorBelt conveyorBelt;
 
         public BeltStack(TileConveyorBelt conveyor, ItemStack stack, boolean isOnLeftSide) {
+
             this.stack = stack;
             this.isOnLeftSide = isOnLeftSide;
             isOnFirstPart = true;
@@ -246,10 +262,12 @@ public class TileConveyorBelt extends TileBase {
         }
 
         public void setConveyor(TileConveyorBelt conveyor) {
+
             conveyorBelt = conveyor;
         }
 
         public boolean update() {
+
             oldProgress = progress;
             // if (!conveyorBelt.worldObj.isRemote) {
             double move = getMaxMovement();
@@ -260,6 +278,7 @@ public class TileConveyorBelt extends TileBase {
         }
 
         public boolean progress(double progression) {
+
             progress += progression;
             if (isOnFirstPart) {
                 boolean onFirstPart = true;
@@ -291,6 +310,7 @@ public class TileConveyorBelt extends TileBase {
         }
 
         public double getMaxMovement() {
+
             double maxMove = Math.min(conveyorBelt.getSpeed(), 1 - progress);
             for (BeltStack s : conveyorBelt.beltStacks) {
                 if (s != this && s.isOnLeftSide == isOnLeftSide) {
@@ -326,6 +346,7 @@ public class TileConveyorBelt extends TileBase {
         }
 
         public void writeToNBT(NBTTagCompound tag) {
+
             NBTTagCompound stackTag = new NBTTagCompound();
             stack.writeToNBT(stackTag);
             tag.setTag("stack", stackTag);

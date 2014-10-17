@@ -19,45 +19,45 @@ import net.minecraft.block.Block;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
-
 /**
  * 
  * @author The Fjong
  *
  */
 public class Blocks {
-	
-	public static Block ResearchTable;
-	public static Block conveyorBelt;
-	
-	//Electricity
-	public static Block pump;
-	public static Block pipe;
-	public static Block boiler;
-	public static Block steamEngine;
-	public static Block energyPole;
-	
-	//Fluids
-	public static Fluid fluidSteam;
-	public static void init(){
-		
-		ResearchTable = new BlockResearchLab(ReferenceBlocks.RESEARCH_LAB_NAME, TileResearchLab.class);
-		conveyorBelt = new BlockConveyorBelt(ReferenceBlocks.CONVEYOR_BELT_NAME,TileConveyorBelt.class);
-		
-		//Electricity
-		pump = new BlockPump(ReferenceBlocks.PUMP_NAME, TilePump.class);
-		pipe = new BlockPipe(ReferenceBlocks.PIPE_NAME, TilePipe.class);
-		boiler = new BlockBoiler(ReferenceBlocks.BOILER_NAME, TileBoiler.class);
-		steamEngine = new BlockSteamEngine(ReferenceBlocks.STEAM_ENGINE_NAME, TileSteamEngine.class);
-		energyPole = new BlockEnergyPole(ReferenceBlocks.ENERGY_POLE_NAME,TileEnergyPole.class);
-		
-		//Fluids
-		fluidSteam = new Fluid(ReferenceBlocks.STEAM_FLUID_NAME);
-	}	
-	
-	
-	public static void registerBlocks(){
-		FluidRegistry.registerFluid(fluidSteam);
-	
-	}
+
+    public static Block ResearchTable;
+    public static Block conveyorBelt;
+
+    // Electricity
+    public static Block pump;
+    public static Block pipe;
+    public static Block boiler;
+    public static Block steamEngine;
+    public static Block energyPole;
+
+    // Fluids
+    public static Fluid fluidSteam;
+
+    public static void init() {
+
+        ResearchTable = new BlockResearchLab(ReferenceBlocks.RESEARCH_LAB_NAME, TileResearchLab.class);
+        conveyorBelt = new BlockConveyorBelt(ReferenceBlocks.CONVEYOR_BELT_NAME, TileConveyorBelt.class);
+
+        // Electricity
+        pump = new BlockPump(ReferenceBlocks.PUMP_NAME, TilePump.class);
+        pipe = new BlockPipe(ReferenceBlocks.PIPE_NAME, TilePipe.class);
+        boiler = new BlockBoiler(ReferenceBlocks.BOILER_NAME, TileBoiler.class);
+        steamEngine = new BlockSteamEngine(ReferenceBlocks.STEAM_ENGINE_NAME, TileSteamEngine.class);
+        energyPole = new BlockEnergyPole(ReferenceBlocks.ENERGY_POLE_NAME, TileEnergyPole.class);
+
+        // Fluids
+        fluidSteam = new Fluid(ReferenceBlocks.STEAM_FLUID_NAME);
+    }
+
+    public static void registerBlocks() {
+
+        FluidRegistry.registerFluid(fluidSteam);
+
+    }
 }

@@ -84,8 +84,8 @@ public class RenderItem3D implements IItemRenderer {
                                     // Draw cube
                                     RenderHelper.drawTexturedCube(new Vec3dCube(0.5 - d, y / height, x / width, 0.5 + d, (y + 1) / height,
                                             (x + 1) / width), icon.getInterpolatedU((16 * x) / width), icon.getInterpolatedV((16 * y)
-                                                    / height), icon.getInterpolatedU((16 * (x + 1)) / width), icon.getInterpolatedV((16 * (y + 1))
-                                                            / height));
+                                            / height), icon.getInterpolatedU((16 * (x + 1)) / width), icon.getInterpolatedV((16 * (y + 1))
+                                            / height));
 
                                     GL11.glColor4d(1, 1, 1, 1);
                                 }

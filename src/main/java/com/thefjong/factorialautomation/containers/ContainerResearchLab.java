@@ -25,51 +25,52 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 
 import com.thefjong.factorialautomation.tileentities.machines.TileResearchLab;
+
 /**
  ****************************************************
  * Parts copied from ContainerDeployer from BluePower
- * @author MineMaarten
- * **************************************************
+ * 
+ * @author MineMaarten **************************************************
  * 
  * @author TheFjong
  */
-public class ContainerResearchLab extends Container{
+public class ContainerResearchLab extends Container {
 
     private final TileResearchLab tileResearchLab;
-    
-    public ContainerResearchLab(InventoryPlayer playerInventory, TileResearchLab tile){
+
+    public ContainerResearchLab(InventoryPlayer playerInventory, TileResearchLab tile) {
+
         this.tileResearchLab = tile;
-        
-        for (int i = 0; i < 4; ++i) {    
-            addSlotToContainer(new Slot(tileResearchLab, i,47 + i * 22, 9));
+
+        for (int i = 0; i < 4; ++i) {
+            addSlotToContainer(new Slot(tileResearchLab, i, 47 + i * 22, 9));
         }
-        for (int i = 0; i < 2; ++i) {    
-            addSlotToContainer(new Slot(tileResearchLab, 4 + i,47 + i * 22, 53));
+        for (int i = 0; i < 2; ++i) {
+            addSlotToContainer(new Slot(tileResearchLab, 4 + i, 47 + i * 22, 53));
         }
         bindPlayerInventory(playerInventory);
     }
-   
+
     protected void bindPlayerInventory(InventoryPlayer invPlayer) {
-        
+
         // Render inventory
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {
                 addSlotToContainer(new Slot(invPlayer, j + i * 9 + 9, 8 + j * 18, 94 + i * 18));
             }
         }
-        
+
         // Render hotbar
         for (int j = 0; j < 9; j++) {
             addSlotToContainer(new Slot(invPlayer, j, 8 + j * 18, 152));
         }
-        
+
     }
 
     @Override
     public boolean canInteractWith(EntityPlayer player) {
-       
+
         return tileResearchLab.isUseableByPlayer(player);
     }
-    
-   
+
 }

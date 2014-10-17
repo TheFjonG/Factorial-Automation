@@ -23,77 +23,83 @@ import com.thefjong.factorialautomation.tileentities.machines.TileSteamEngine;
 public class BlockPipe extends BlockContainerBase {
 
     public BlockPipe(String name, Class<? extends TileBase> tileClass) {
+
         super(Material.iron, name, tileClass);
-        
+
     }
-    
+
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
-        TilePipe pipe= (TilePipe)world.getTileEntity(x, y, z);
+
+        TilePipe pipe = (TilePipe) world.getTileEntity(x, y, z);
         pipe.sendMessageToPlayer(player);
-        if(player.inventory.getCurrentItem() != null){
-            
-            if(player.inventory.getCurrentItem().getItem() == Items.water_bucket){
+        if (player.inventory.getCurrentItem() != null) {
+
+            if (player.inventory.getCurrentItem().getItem() == Items.water_bucket) {
                 pipe.fill(new FluidStack(FluidRegistry.WATER, 1000), true);
             }
         }
         return super.onBlockActivated(world, x, y, z, player, par6, par7, par8, par9);
     }
-    
+
     @Override
     public int getRenderType() {
-       
+
         return RenderPipe.RENDER_ID;
     }
+
     @Override
     public boolean isOpaqueCube() {
-      
+
         return false;
     }
+
     @Override
     public boolean renderAsNormalBlock() {
-        
+
         return false;
     }
-    
+
     @Override
     public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
+
         AxisAlignedBB boundingbox = AxisAlignedBB.getBoundingBox(0.2, 0.2, 0.2, .8, .8, .8);
-        
-        for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS){
+
+        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
             TileEntity tile = world.getTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
-            if(tile instanceof TileBase){ 
-                if(canPipeConnectToTile((TileBase)tile)){
-                    
-                    if(tile.xCoord == x - 1){
+            if (tile instanceof TileBase) {
+                if (canPipeConnectToTile((TileBase) tile)) {
+
+                    if (tile.xCoord == x - 1) {
                         boundingbox.minX = 0;
                     }
-                    if(tile.xCoord == x + 1){
+                    if (tile.xCoord == x + 1) {
                         boundingbox.maxX = 1;
-                    }           
-                    if(tile.yCoord == y - 1){
-                        boundingbox.minY = 0;                
                     }
-                    if(tile.yCoord == y + 1){
+                    if (tile.yCoord == y - 1) {
+                        boundingbox.minY = 0;
+                    }
+                    if (tile.yCoord == y + 1) {
                         boundingbox.maxY = 1;
-                    }    
-                    if(tile.zCoord == z - 1){
-                        boundingbox.minZ = 0;               
                     }
-                    if(tile.zCoord == z + 1){
-                        boundingbox.maxZ = 1;   
+                    if (tile.zCoord == z - 1) {
+                        boundingbox.minZ = 0;
+                    }
+                    if (tile.zCoord == z + 1) {
+                        boundingbox.maxZ = 1;
                     }
                 }
             }
-        }  
-        setBlockBounds((float)boundingbox.minX, (float)boundingbox.minY, (float)boundingbox.minZ, (float)boundingbox.maxX, (float)boundingbox.maxY, (float)boundingbox.maxZ);
+        }
+        setBlockBounds((float) boundingbox.minX, (float) boundingbox.minY, (float) boundingbox.minZ, (float) boundingbox.maxX,
+                (float) boundingbox.maxY, (float) boundingbox.maxZ);
     }
-    
-    
-    public boolean canPipeConnectToTile(TileBase tile){
-        if(tile instanceof TilePipe || tile instanceof TilePump || tile instanceof TileBoiler || tile instanceof TileSteamEngine)
+
+    public boolean canPipeConnectToTile(TileBase tile) {
+
+        if (tile instanceof TilePipe || tile instanceof TilePump || tile instanceof TileBoiler || tile instanceof TileSteamEngine)
             return true;
-        
+
         return false;
     }
 }

@@ -17,9 +17,10 @@ import cpw.mods.fml.common.registry.GameRegistry;
  * @author The Fjong
  *
  */
-public class BlockContainerBase extends BlockTileBase implements ITileEntityProvider{
+public class BlockContainerBase extends BlockTileBase implements ITileEntityProvider {
 
-    public BlockContainerBase(Material material, String name, Class<? extends TileBase> tileClass){
+    public BlockContainerBase(Material material, String name, Class<? extends TileBase> tileClass) {
+
         super(material, tileClass);
         setCreativeTab(CustomTabs.forBlocks);
         GameRegistry.registerBlock(this, name);
@@ -27,17 +28,20 @@ public class BlockContainerBase extends BlockTileBase implements ITileEntityProv
         setBlockTextureName(Reference.MODID + ":" + name);
     }
 
-    public void setGuiId(GuiIDs guiId){
+    public void setGuiId(GuiIDs guiId) {
+
         setGuiId(guiId.ordinal());
     }
 
     @Override
-    protected Object getModInstance(){
+    protected Object getModInstance() {
+
         return FactorialAutomation.instance;
     }
 
     @Override
-    protected String getModId(){
+    protected String getModId() {
+
         return Reference.MODID;
     }
 

@@ -37,8 +37,8 @@ public class ModEventHandler {
         if (event.entityLiving instanceof EntityZombie && event.source.getDamageType().equals("player")) {
             if (random.nextInt(3) == 0) {
 
-                EntityItem drop = new EntityItem(event.entity.worldObj, event.entity.posX, event.entity.posY, event.entity.posZ, new ItemStack(
-                        Items.brainfragment));
+                EntityItem drop = new EntityItem(event.entity.worldObj, event.entity.posX, event.entity.posY, event.entity.posZ,
+                        new ItemStack(Items.brainfragment));
                 event.entity.worldObj.spawnEntityInWorld(drop);
             }
         }

@@ -37,13 +37,15 @@ public class ItemBase3D extends ItemBase {
 
         itemIcon = reg.registerIcon(Reference.MODID + ":" + name);
         try {
-            depthMask = ImageIO.read(getClass().getResourceAsStream("/assets/" + Reference.MODID + "/textures/items/" + name + "_depth.png"));
+            depthMask = ImageIO.read(getClass()
+                    .getResourceAsStream("/assets/" + Reference.MODID + "/textures/items/" + name + "_depth.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
         if (hasCloudMask) {
             try {
-                cloudMask = ImageIO.read(getClass().getResourceAsStream("/assets/" + Reference.MODID + "/textures/items/" + name + "_effect.png"));
+                cloudMask = ImageIO.read(getClass().getResourceAsStream(
+                        "/assets/" + Reference.MODID + "/textures/items/" + name + "_effect.png"));
             } catch (IOException e) {
                 e.printStackTrace();
             }

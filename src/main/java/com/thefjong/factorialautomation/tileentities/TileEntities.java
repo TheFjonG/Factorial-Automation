@@ -9,21 +9,21 @@ import com.thefjong.factorialautomation.tileentities.machines.TileResearchLab;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 
-
 /**
  * 
  * @author The Fjong
  *
  */
 public class TileEntities {
-	
-	public static void registerTiles(){
-		GameRegistry.registerTileEntity(TileResearchLab.class, ReferenceBlocks.RESEARCH_LAB_NAME);
-		GameRegistry.registerTileEntity(TileConveyorBelt.class, ReferenceBlocks.CONVEYOR_BELT_NAME);
-		
-		GameRegistry.registerTileEntity(TilePump.class, ReferenceBlocks.PUMP_NAME);
-		GameRegistry.registerTileEntity(TilePipe.class, ReferenceBlocks.PIPE_NAME);
-		GameRegistry.registerTileEntity(TileEnergyPole.class, ReferenceBlocks.ENERGY_POLE_NAME);
-		
-	}
+
+    public static void registerTiles() {
+
+        GameRegistry.registerTileEntity(TileResearchLab.class, ReferenceBlocks.RESEARCH_LAB_NAME);
+        GameRegistry.registerTileEntity(TileConveyorBelt.class, ReferenceBlocks.CONVEYOR_BELT_NAME);
+
+        GameRegistry.registerTileEntity(TilePump.class, ReferenceBlocks.PUMP_NAME);
+        GameRegistry.registerTileEntity(TilePipe.class, ReferenceBlocks.PIPE_NAME);
+        GameRegistry.registerTileEntity(TileEnergyPole.class, ReferenceBlocks.ENERGY_POLE_NAME);
+
+    }
 }

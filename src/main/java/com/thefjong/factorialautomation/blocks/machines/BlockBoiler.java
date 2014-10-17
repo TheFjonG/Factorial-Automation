@@ -7,9 +7,10 @@ import com.thefjong.factorialautomation.blocks.BlockContainerBase;
 
 public class BlockBoiler extends BlockContainerBase {
 
-    public BlockBoiler( String name, Class<? extends TileBase> tileClass) {
+    public BlockBoiler(String name, Class<? extends TileBase> tileClass) {
+
         super(Material.iron, name, tileClass);
-        
+
     }
 
 }
