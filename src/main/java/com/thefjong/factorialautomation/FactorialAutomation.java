@@ -1,8 +1,8 @@
 package com.thefjong.factorialautomation;
 
+import com.thefjong.factorialautomation.blocks.ModBlocks;
 import org.apache.logging.log4j.Logger;
 
-import com.thefjong.factorialautomation.blocks.Blocks;
 import com.thefjong.factorialautomation.handlers.GuiHandler;
 import com.thefjong.factorialautomation.handlers.IProxyHandler;
 import com.thefjong.factorialautomation.items.Items;
@@ -36,7 +36,7 @@ public class FactorialAutomation {
     @EventHandler
     private void preInit(FMLPreInitializationEvent event) {
 
-        Blocks.init();
+        ModBlocks.init();
         Items.init();
         Items.registerInit();
         TileEntities.registerTiles();

@@ -24,7 +24,7 @@ import net.minecraftforge.fluids.FluidRegistry;
  * @author The Fjong
  *
  */
-public class Blocks {
+public class ModBlocks {
 
     public static Block ResearchTable;
     public static Block conveyorBelt;

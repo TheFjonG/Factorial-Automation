@@ -169,7 +169,7 @@ public class BlockConveyorBelt extends BlockContainerBase {
 
         TileBase tile = (TileBase) world.getTileEntity(x, y, z);
         if (world.getBlock(x + tile.getFacingDirection().offsetX, y + tile.getFacingDirection().offsetY, z
-                + tile.getFacingDirection().offsetZ) == Blocks.conveyorBelt) {
+                + tile.getFacingDirection().offsetZ) == ModBlocks.conveyorBelt) {
             return true;
         } else
             return false;
