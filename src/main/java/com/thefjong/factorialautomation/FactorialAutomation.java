@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import com.thefjong.factorialautomation.handlers.GuiHandler;
 import com.thefjong.factorialautomation.handlers.IProxyHandler;
 import com.thefjong.factorialautomation.items.Items;
+import com.thefjong.factorialautomation.part.PartManager;
 import com.thefjong.factorialautomation.reference.Reference;
 import com.thefjong.factorialautomation.tileentities.TileEntities;
 
@@ -52,6 +53,8 @@ public class FactorialAutomation {
         proxy.registerEventHandlers();
         proxy.registerRenders();
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
+
+        PartManager.registerParts();
     }
 
     @EventHandler
