@@ -44,7 +44,11 @@ public class RenderPipe extends TileEntitySpecialRenderer implements ISimpleBloc
 
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
+        GL11.glPushMatrix();
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
         PIPE_MODEL.renderAll();
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glPopMatrix();
     }
 
     @Override
@@ -128,7 +132,7 @@ public class RenderPipe extends TileEntitySpecialRenderer implements ISimpleBloc
                 }
             }
 
-            if (connection1.getOpposite() == connection2 && connection2.getOpposite() == connection1) {
+            if (connection1.getOpposite() == connection2 || connection2.getOpposite() == connection1) {
                 if (connection1 == ForgeDirection.NORTH || connection1 == ForgeDirection.SOUTH) {
                     // NO ROTATION
                 } else if (connection1 == ForgeDirection.WEST || connection1 == ForgeDirection.EAST) {
@@ -139,61 +143,50 @@ public class RenderPipe extends TileEntitySpecialRenderer implements ISimpleBloc
 
                 PIPE_MODEL.renderAll();
             } else {
-                // We're a bend
-                if (connection1 == ForgeDirection.DOWN || connection2 == ForgeDirection.DOWN) {
-                    ForgeDirection compare = null;
-                    if (connection1 == ForgeDirection.DOWN) {
-                        compare = connection2;
-                    } else {
-                        compare = connection1;
-                    }
-
-                    switch (compare) {
-                        case SOUTH:
-                            break;
-                        case NORTH:
-                            GL11.glRotated(180, 0, 1, 0);
-                            break;
-                        case EAST:
-                            GL11.glRotated(-90, 0, 1, 0);
-                            break;
-                        case WEST:
-                            GL11.glRotated(90, 0, 1, 0);
-                            break;
-                    }
-                } else if (connection1 == ForgeDirection.UP || connection2 == ForgeDirection.UP) {
-                    ForgeDirection compare = null;
+                boolean flip = false;
+                ForgeDirection rotation = ForgeDirection.UNKNOWN;
+                if (connection1 == ForgeDirection.UP || connection2 == ForgeDirection.UP) {
+                    flip = true;
                     if (connection1 == ForgeDirection.UP) {
-                        compare = connection2;
+                        rotation = connection2;
                     } else {
-                        compare = connection1;
+                        rotation = connection1;
                     }
+                } else if (connection1 == ForgeDirection.DOWN || connection2 == ForgeDirection.DOWN) {
+                    flip = false;
+                    if (connection1 == ForgeDirection.DOWN) {
+                        rotation = connection2;
+                    } else {
+                        rotation = connection1;
+                    }
+                }
 
-                    GL11.glRotated(180, 1, 0, 0);
-
-                    switch (compare) {
-                        case NORTH:
-                            break;
+                if (rotation != ForgeDirection.UNKNOWN) {
+                    switch (rotation) {
                         case SOUTH:
-                            GL11.glRotated(180, 0, 1, 0);
+                            if (!flip) GL11.glRotated(180, 0, 1, 0);
+                            break;
+                        case NORTH:
+                            if (flip) GL11.glRotated(180, 0, 1, 0);
                             break;
                         case EAST:
-                            GL11.glRotated(-90, 0, 1, 0);
+                            GL11.glRotated(flip ? -90 : 90, 0, 1, 0);
                             break;
                         case WEST:
-                            GL11.glRotated(90, 0, 1, 0);
+                            GL11.glRotated(flip ? 90 : -90, 0, 1, 0);
                             break;
                     }
+                    if (flip) GL11.glRotated(180, 1, 0, 0);
                 } else {
-                    if (connection1 == ForgeDirection.NORTH && connection2 == ForgeDirection.WEST || connection1 == ForgeDirection.WEST && connection2 == ForgeDirection.NORTH) {
+                    if ((connection1 == ForgeDirection.NORTH && connection2 == ForgeDirection.WEST) || (connection1 == ForgeDirection.WEST || connection2 == ForgeDirection.NORTH)) {
                         GL11.glRotated(90, 0, 0, 1);
                         GL11.glRotated(180, 1, 0, 0);
-                    } else if (connection1 == ForgeDirection.NORTH && connection2 == ForgeDirection.EAST || connection1 == ForgeDirection.EAST || connection2 == ForgeDirection.NORTH) {
+                    } else if ((connection1 == ForgeDirection.NORTH && connection2 == ForgeDirection.EAST) || (connection1 == ForgeDirection.EAST || connection2 == ForgeDirection.NORTH)) {
                         GL11.glRotated(90, 0, 0, 1);
                         GL11.glRotated(90, 1, 0, 0);
-                    } else if (connection1 == ForgeDirection.SOUTH && connection2 == ForgeDirection.WEST || connection1 == ForgeDirection.WEST && connection2 == ForgeDirection.SOUTH) {
+                    } else if ((connection1 == ForgeDirection.SOUTH && connection2 == ForgeDirection.WEST) || (connection1 == ForgeDirection.WEST || connection2 == ForgeDirection.SOUTH)) {
                         GL11.glRotated(-90, 0, 0, 1);
-                    } else if (connection1 == ForgeDirection.SOUTH && connection2 == ForgeDirection.EAST || connection1 == ForgeDirection.EAST || connection2 == ForgeDirection.SOUTH) {
+                    } else if ((connection1 == ForgeDirection.SOUTH && connection2 == ForgeDirection.EAST) || (connection1 == ForgeDirection.EAST || connection2 == ForgeDirection.SOUTH)) {
                         GL11.glRotated(-90, 0, 0, 1);
                         GL11.glRotated(-90, 1, 0, 0);
                     }
@@ -210,6 +203,7 @@ public class RenderPipe extends TileEntitySpecialRenderer implements ISimpleBloc
     }
 
     private void renderJunction(boolean[] connectionMap) {
+        //TODO Make these names changes to the actual model
         final String[] newNames = new String[] {"down", "up", "west", "east", "north", "south"};
         String[] parts = new String[connectionMap.length + 1];
         for (int i=0; i<connectionMap.length; i++) {
