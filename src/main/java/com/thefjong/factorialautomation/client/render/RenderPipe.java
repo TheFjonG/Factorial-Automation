@@ -2,6 +2,7 @@ package com.thefjong.factorialautomation.client.render;
 
 import com.qmunity.lib.tileentity.TileBase;
 import com.thefjong.factorialautomation.reference.Reference;
+import com.thefjong.factorialautomation.tileentities.machines.TilePipe;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import net.minecraft.block.Block;
@@ -83,29 +84,24 @@ public class RenderPipe extends TileEntitySpecialRenderer implements ISimpleBloc
 
     @Override
     public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float partialTick) {
+        TilePipe tilePipe = (TilePipe) tile;
+
         GL11.glPushMatrix();
         GL11.glTranslated(x + .5, y + .5, z + .5);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
 
         //TODO Preemptive TODO as this will DEFINITELY need to be cleaned up / rewritten
 
-        boolean[] connections = new boolean[ForgeDirection.VALID_DIRECTIONS.length];
         int connectionCount = 0;
-
-        for (ForgeDirection forgeDirection : ForgeDirection.VALID_DIRECTIONS) {
-            TileEntity tileEntity = tile.getWorldObj().getTileEntity(tile.xCoord + forgeDirection.offsetX, tile.yCoord + forgeDirection.offsetY, tile.zCoord + forgeDirection.offsetZ);
-
-            if (tileEntity instanceof IFluidHandler) {
-                connections[forgeDirection.ordinal()] = true;
-                connectionCount++;
-            }
+        for (int i=0; i<tilePipe.visualConnectionCache.length; i++) {
+            if (tilePipe.visualConnectionCache[i]) connectionCount++;
         }
 
         if (connectionCount == 0) {
             PIPE_MODEL.renderAll();
         } else if (connectionCount == 1) {
-            for (int i=0; i<connections.length; i++) {
-                if (connections[i]) {
+            for (int i=0; i<tilePipe.visualConnectionCache.length; i++) {
+                if (tilePipe.visualConnectionCache[i]) {
                     ForgeDirection forgeDirection = ForgeDirection.getOrientation(i);
 
                     if (forgeDirection == ForgeDirection.NORTH || forgeDirection == ForgeDirection.SOUTH) {
@@ -123,8 +119,8 @@ public class RenderPipe extends TileEntitySpecialRenderer implements ISimpleBloc
             ForgeDirection connection1 = null;
             ForgeDirection connection2 = null;
 
-            for (int i=0; i<connections.length; i++) {
-                if (connections[i]) {
+            for (int i=0; i<tilePipe.visualConnectionCache.length; i++) {
+                if (tilePipe.visualConnectionCache[i]) {
                     if (connection1 == null)
                         connection1 = ForgeDirection.getOrientation(i);
                     else
@@ -206,7 +202,7 @@ public class RenderPipe extends TileEntitySpecialRenderer implements ISimpleBloc
                 PIPE_BEND_MODEL.renderAll();
             }
         } else {
-            renderJunction(connections);
+            renderJunction(tilePipe.visualConnectionCache);
         }
 
         GL11.glEnable(GL11.GL_TEXTURE_2D);

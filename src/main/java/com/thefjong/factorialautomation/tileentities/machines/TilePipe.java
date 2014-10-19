@@ -21,6 +21,8 @@ public class TilePipe extends TileBase implements IFluidTank, IFluidHandler {
     public int capacity = 1000;
     public FluidTank tank = new FluidTank(fluidStack, capacity);
 
+    public boolean[] visualConnectionCache = new boolean[6];
+
     @Override
     public FluidStack getFluid() {
 
@@ -158,6 +160,15 @@ public class TilePipe extends TileBase implements IFluidTank, IFluidHandler {
         return tank;
     }
 
+    private void reloadConnectionCache() {
+        visualConnectionCache = new boolean[6];
+        for (ForgeDirection forgeDirection : ForgeDirection.VALID_DIRECTIONS) {
+            if (worldObj.getTileEntity(xCoord + forgeDirection.offsetX, yCoord + forgeDirection.offsetY, zCoord + forgeDirection.offsetZ) instanceof IFluidHandler) {
+                visualConnectionCache[forgeDirection.ordinal()] = true;
+            }
+        }
+    }
+
     @Override
     protected void onTileLoaded() {
 
@@ -169,7 +180,28 @@ public class TilePipe extends TileBase implements IFluidTank, IFluidHandler {
     public void onBlockNeighbourChanged() {
 
         markDirty();
-
+        reloadConnectionCache();
+        sendUpdatePacket();
         super.onBlockNeighbourChanged();
+    }
+
+    @Override
+    protected void writeToPacketNBT(NBTTagCompound tCompound) {
+        super.writeToPacketNBT(tCompound);
+        for (int i=0; i<visualConnectionCache.length; i++) {
+            tCompound.setBoolean("connectionCache_" + i, visualConnectionCache[i]);
+        }
+    }
+
+    @Override
+    protected void readFromPacketNBT(NBTTagCompound tCompound) {
+        super.readFromPacketNBT(tCompound);
+
+        visualConnectionCache = new boolean[6];
+        for (int i=0; i<visualConnectionCache.length; i++) {
+            visualConnectionCache[i] = tCompound.getBoolean("connectionCache_" + i);
+        }
+
+        markForRenderUpdate();
     }
 }
