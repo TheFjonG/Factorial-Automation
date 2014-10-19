@@ -1,6 +1,11 @@
 package com.thefjong.factorialautomation.client.render;
 
-import com.thefjong.factorialautomation.items.ItemBase3D;
+import java.awt.image.BufferedImage;
+import java.util.AbstractMap;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -8,13 +13,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.client.IItemRenderer;
+
 import org.lwjgl.opengl.GL11;
 
-import java.awt.image.BufferedImage;
-import java.util.AbstractMap;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
+import com.qmunity.lib.render.RenderHelper;
+import com.qmunity.lib.vec.Vec3dCube;
+import com.thefjong.factorialautomation.items.ItemBase3D;
 
 public class RenderItem3D implements IItemRenderer {
 
@@ -78,10 +82,10 @@ public class RenderItem3D implements IItemRenderer {
                                     GL11.glColor4d(red / 128D, green / 128D, blue / 128D, alpha / 256D);
 
                                     // Draw cube
-                                    /*RenderHelper.drawTexturedCube(new Vec3dCube(0.5 - d, y / height, x / width, 0.5 + d, (y + 1) / height,
+                                    RenderHelper.drawTexturedCube(new Vec3dCube(0.5 - d, y / height, x / width, 0.5 + d, (y + 1) / height,
                                             (x + 1) / width), icon.getInterpolatedU((16 * x) / width), icon.getInterpolatedV((16 * y)
                                             / height), icon.getInterpolatedU((16 * (x + 1)) / width), icon.getInterpolatedV((16 * (y + 1))
-                                            / height));*/
+                                            / height));
 
                                     GL11.glColor4d(1, 1, 1, 1);
                                 }
@@ -104,9 +108,9 @@ public class RenderItem3D implements IItemRenderer {
                             double d = (depthVal / 256D) / 16D;
 
                             // Draw cube
-                            /*RenderHelper.drawTexturedCube(new Vec3dCube(0.5 - d, y / height, x / width, 0.5 + d, (y + 1) / height, (x + 1)
-                                    / width), base.getInterpolatedU((16 * x) / width), base.getInterpolatedV((16 * y) / height),
-                                    base.getInterpolatedU((16 * (x + 1)) / width), base.getInterpolatedV((16 * (y + 1)) / height));*/
+                            RenderHelper.drawTexturedCube(new Vec3dCube(0.5 - d, y / height, x / width, 0.5 + d, (y + 1) / height, (x + 1)
+                                            / width), base.getInterpolatedU((16 * x) / width), base.getInterpolatedV((16 * y) / height),
+                                    base.getInterpolatedU((16 * (x + 1)) / width), base.getInterpolatedV((16 * (y + 1)) / height));
                         }
                     }
                     GL11.glEnd();
@@ -122,23 +126,23 @@ public class RenderItem3D implements IItemRenderer {
         {
 
             switch (type) {
-            case ENTITY:
-                break;
-            case EQUIPPED:
-                GL11.glTranslated(0, 0.5, 0);
-                break;
-            case EQUIPPED_FIRST_PERSON:
-                GL11.glTranslated(-0.75, 1.25, 0.75);
-                GL11.glRotated(-30, 0, 1, 0);
-                GL11.glRotated(-30, 1, 0, 0);
-                break;
-            case INVENTORY:
-                GL11.glRotated(-45, 0, 1, 0);
-                GL11.glRotated(15, 0, 0, 1);
-                GL11.glScaled(2, 2, 2);
-                break;
-            default:
-                break;
+                case ENTITY:
+                    break;
+                case EQUIPPED:
+                    GL11.glTranslated(0, 0.5, 0);
+                    break;
+                case EQUIPPED_FIRST_PERSON:
+                    GL11.glTranslated(-0.75, 1.25, 0.75);
+                    GL11.glRotated(-30, 0, 1, 0);
+                    GL11.glRotated(-30, 1, 0, 0);
+                    break;
+                case INVENTORY:
+                    GL11.glRotated(-45, 0, 1, 0);
+                    GL11.glRotated(15, 0, 0, 1);
+                    GL11.glScaled(2, 2, 2);
+                    break;
+                default:
+                    break;
             }
 
             GL11.glScaled(0.75, 0.75, 0.75);
