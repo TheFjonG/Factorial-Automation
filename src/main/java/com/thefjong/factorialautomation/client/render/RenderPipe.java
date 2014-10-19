@@ -1,7 +1,6 @@
 package com.thefjong.factorialautomation.client.render;
 
 import com.qmunity.lib.tileentity.TileBase;
-import com.thefjong.factorialautomation.blocks.ModBlocks;
 import com.thefjong.factorialautomation.reference.Reference;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -16,6 +15,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.IFluidHandler;
 import org.lwjgl.opengl.GL11;
 
@@ -87,22 +87,144 @@ public class RenderPipe extends TileEntitySpecialRenderer implements ISimpleBloc
         GL11.glTranslated(x + .5, y + .5, z + .5);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
 
-        Block above = tile.getWorldObj().getBlock(tile.xCoord, tile.yCoord + 1, tile.zCoord);
+        //TODO Preemptive TODO as this will DEFINITELY need to be cleaned up / rewritten
 
-        if (above == ModBlocks.pipe) {
-            GL11.glRotated(90, 1, 0, 0);
+        boolean[] connections = new boolean[ForgeDirection.VALID_DIRECTIONS.length];
+        int connectionCount = 0;
+
+        for (ForgeDirection forgeDirection : ForgeDirection.VALID_DIRECTIONS) {
+            TileEntity tileEntity = tile.getWorldObj().getTileEntity(tile.xCoord + forgeDirection.offsetX, tile.yCoord + forgeDirection.offsetY, tile.zCoord + forgeDirection.offsetZ);
+
+            if (tileEntity instanceof IFluidHandler) {
+                connections[forgeDirection.ordinal()] = true;
+                connectionCount++;
+            }
+        }
+
+        if (connectionCount == 0) {
             PIPE_MODEL.renderAll();
-        } else {
-            Block next = tile.getWorldObj().getBlock(tile.xCoord, tile.yCoord, tile.zCoord - 1);
-            if (next == ModBlocks.pipe) {
+        } else if (connectionCount == 1) {
+            for (int i=0; i<connections.length; i++) {
+                if (connections[i]) {
+                    ForgeDirection forgeDirection = ForgeDirection.getOrientation(i);
+
+                    if (forgeDirection == ForgeDirection.NORTH || forgeDirection == ForgeDirection.SOUTH) {
+                        // NO ROTATION
+                    } else if (forgeDirection == ForgeDirection.WEST || forgeDirection == ForgeDirection.EAST) {
+                        GL11.glRotated(90, 0, 1, 0);
+                    } else if (forgeDirection == ForgeDirection.UP || forgeDirection == ForgeDirection.DOWN) {
+                        GL11.glRotated(90, 1, 0, 0);
+                    }
+
+                    PIPE_MODEL.renderAll();
+                }
+            }
+        } else if (connectionCount == 2) {
+            ForgeDirection connection1 = null;
+            ForgeDirection connection2 = null;
+
+            for (int i=0; i<connections.length; i++) {
+                if (connections[i]) {
+                    if (connection1 == null)
+                        connection1 = ForgeDirection.getOrientation(i);
+                    else
+                        connection2 = ForgeDirection.getOrientation(i);
+                }
+            }
+
+            if (connection1.getOpposite() == connection2 && connection2.getOpposite() == connection1) {
+                if (connection1 == ForgeDirection.NORTH || connection1 == ForgeDirection.SOUTH) {
+                    // NO ROTATION
+                } else if (connection1 == ForgeDirection.WEST || connection1 == ForgeDirection.EAST) {
+                    GL11.glRotated(90, 0, 1, 0);
+                } else if (connection1 == ForgeDirection.UP || connection1 == ForgeDirection.DOWN) {
+                    GL11.glRotated(90, 1, 0, 0);
+                }
+
                 PIPE_MODEL.renderAll();
             } else {
+                // We're a bend
+                if (connection1 == ForgeDirection.DOWN || connection2 == ForgeDirection.DOWN) {
+                    ForgeDirection compare = null;
+                    if (connection1 == ForgeDirection.DOWN) {
+                        compare = connection2;
+                    } else {
+                        compare = connection1;
+                    }
+
+                    switch (compare) {
+                        case SOUTH:
+                            break;
+                        case NORTH:
+                            GL11.glRotated(180, 0, 1, 0);
+                            break;
+                        case EAST:
+                            GL11.glRotated(-90, 0, 1, 0);
+                            break;
+                        case WEST:
+                            GL11.glRotated(90, 0, 1, 0);
+                            break;
+                    }
+                } else if (connection1 == ForgeDirection.UP || connection2 == ForgeDirection.UP) {
+                    ForgeDirection compare = null;
+                    if (connection1 == ForgeDirection.UP) {
+                        compare = connection2;
+                    } else {
+                        compare = connection1;
+                    }
+
+                    GL11.glRotated(180, 1, 0, 0);
+
+                    switch (compare) {
+                        case NORTH:
+                            break;
+                        case SOUTH:
+                            GL11.glRotated(180, 0, 1, 0);
+                            break;
+                        case EAST:
+                            GL11.glRotated(-90, 0, 1, 0);
+                            break;
+                        case WEST:
+                            GL11.glRotated(90, 0, 1, 0);
+                            break;
+                    }
+                } else {
+                    if (connection1 == ForgeDirection.NORTH && connection2 == ForgeDirection.WEST || connection1 == ForgeDirection.WEST && connection2 == ForgeDirection.NORTH) {
+                        GL11.glRotated(90, 0, 0, 1);
+                        GL11.glRotated(180, 1, 0, 0);
+                    } else if (connection1 == ForgeDirection.NORTH && connection2 == ForgeDirection.EAST || connection1 == ForgeDirection.EAST || connection2 == ForgeDirection.NORTH) {
+                        GL11.glRotated(90, 0, 0, 1);
+                        GL11.glRotated(90, 1, 0, 0);
+                    } else if (connection1 == ForgeDirection.SOUTH && connection2 == ForgeDirection.WEST || connection1 == ForgeDirection.WEST && connection2 == ForgeDirection.SOUTH) {
+                        GL11.glRotated(-90, 0, 0, 1);
+                    } else if (connection1 == ForgeDirection.SOUTH && connection2 == ForgeDirection.EAST || connection1 == ForgeDirection.EAST || connection2 == ForgeDirection.SOUTH) {
+                        GL11.glRotated(-90, 0, 0, 1);
+                        GL11.glRotated(-90, 1, 0, 0);
+                    }
+                }
+
                 PIPE_BEND_MODEL.renderAll();
             }
+        } else {
+            renderJunction(connections);
         }
 
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glPopMatrix();
+    }
+
+    private void renderJunction(boolean[] connectionMap) {
+        final String[] newNames = new String[] {"down", "up", "west", "east", "north", "south"};
+        String[] parts = new String[connectionMap.length + 1];
+        for (int i=0; i<connectionMap.length; i++) {
+            if (connectionMap[i])
+                parts[i] = "junction_" + newNames[i];
+            else
+                parts[i] = "junction_" + newNames[i] + "_cover";
+
+        }
+        parts[connectionMap.length] = "junction";
+        PIPE_JUNCTION_MODEL.renderOnly(parts);
     }
 
 }

@@ -1,11 +1,6 @@
 package com.thefjong.factorialautomation.client.render;
 
-import java.awt.image.BufferedImage;
-import java.util.AbstractMap;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
+import com.thefjong.factorialautomation.items.ItemBase3D;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -13,12 +8,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.client.IItemRenderer;
-
 import org.lwjgl.opengl.GL11;
 
-import com.qmunity.lib.render.RenderHelper;
-import com.qmunity.lib.vec.Vec3dCube;
-import com.thefjong.factorialautomation.items.ItemBase3D;
+import java.awt.image.BufferedImage;
+import java.util.AbstractMap;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class RenderItem3D implements IItemRenderer {
 
@@ -82,10 +78,10 @@ public class RenderItem3D implements IItemRenderer {
                                     GL11.glColor4d(red / 128D, green / 128D, blue / 128D, alpha / 256D);
 
                                     // Draw cube
-                                    RenderHelper.drawTexturedCube(new Vec3dCube(0.5 - d, y / height, x / width, 0.5 + d, (y + 1) / height,
+                                    /*RenderHelper.drawTexturedCube(new Vec3dCube(0.5 - d, y / height, x / width, 0.5 + d, (y + 1) / height,
                                             (x + 1) / width), icon.getInterpolatedU((16 * x) / width), icon.getInterpolatedV((16 * y)
                                             / height), icon.getInterpolatedU((16 * (x + 1)) / width), icon.getInterpolatedV((16 * (y + 1))
-                                            / height));
+                                            / height));*/
 
                                     GL11.glColor4d(1, 1, 1, 1);
                                 }
@@ -108,9 +104,9 @@ public class RenderItem3D implements IItemRenderer {
                             double d = (depthVal / 256D) / 16D;
 
                             // Draw cube
-                            RenderHelper.drawTexturedCube(new Vec3dCube(0.5 - d, y / height, x / width, 0.5 + d, (y + 1) / height, (x + 1)
+                            /*RenderHelper.drawTexturedCube(new Vec3dCube(0.5 - d, y / height, x / width, 0.5 + d, (y + 1) / height, (x + 1)
                                     / width), base.getInterpolatedU((16 * x) / width), base.getInterpolatedV((16 * y) / height),
-                                    base.getInterpolatedU((16 * (x + 1)) / width), base.getInterpolatedV((16 * (y + 1)) / height));
+                                    base.getInterpolatedU((16 * (x + 1)) / width), base.getInterpolatedV((16 * (y + 1)) / height));*/
                         }
                     }
                     GL11.glEnd();
