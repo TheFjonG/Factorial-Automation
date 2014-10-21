@@ -3,7 +3,7 @@ package com.thefjong.factorialautomation.tileentities.machines;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -11,169 +11,181 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
-import net.minecraftforge.fluids.IFluidTank;
 
 import com.qmunity.lib.tileentity.TileBase;
+import com.thefjong.factorialautomation.utils.ChatMessageUtil;
 /**
  *  
  * @author TheFjong
  * 
  */
-public class TilePump extends TileBase implements IFluidTank, IFluidHandler {
+public class TilePump extends TileBase implements IFluidHandler {
 
-    /** Do not use this!.. use tank.getFluid() instead! **/
-    private FluidStack fluidStack;
-
-    private int capacity = 8000;
-    FluidTank tank = new FluidTank(fluidStack, capacity);
-
-    @Override
-    public FluidStack getFluid() {
-
-        return fluidStack;
+    public boolean[] visualConnectionCache = new boolean[6];
+    
+    private void reloadConnectionCache() {
+        visualConnectionCache = new boolean[6];
+        for (ForgeDirection forgeDirection : ForgeDirection.VALID_DIRECTIONS) {
+            if (worldObj.getTileEntity(xCoord + forgeDirection.offsetX, yCoord + forgeDirection.offsetY, zCoord + forgeDirection.offsetZ) instanceof IFluidHandler) {
+                visualConnectionCache[forgeDirection.ordinal()] = true;
+            }
+        }
     }
 
     @Override
-    public int getFluidAmount() {
+    public void onBlockNeighbourChanged() {
 
-        return tank.getFluidAmount();
+        reloadConnectionCache();
+        sendUpdatePacket();
+        super.onBlockNeighbourChanged();
     }
 
     @Override
-    public int getCapacity() {
-
-        return 8000;
+    protected void writeToPacketNBT(NBTTagCompound tCompound) {
+        super.writeToPacketNBT(tCompound);
+        for (int i=0; i<visualConnectionCache.length; i++) {
+            tCompound.setBoolean("connectionCache_" + i, visualConnectionCache[i]);
+        }
     }
 
     @Override
-    public FluidTankInfo getInfo() {
+    protected void readFromPacketNBT(NBTTagCompound tCompound) {
+        super.readFromPacketNBT(tCompound);
 
-        return tank.getInfo();
+        visualConnectionCache = new boolean[6];
+        for (int i=0; i<visualConnectionCache.length; i++) {
+            visualConnectionCache[i] = tCompound.getBoolean("connectionCache_" + i);
+        }
+
+        markForRenderUpdate();
     }
+    
+    /** Fluid tank stuff */
+    public class FluidPump extends FluidTank{
 
-    @Override
-    public int fill(FluidStack resource, boolean doFill) {
-
-        if (resource.getFluid() != FluidRegistry.WATER)
-            return 0;
-        return tank.fill(resource, doFill);
+        public FluidPump() {
+            super(null, 8000);
+            
+        }
+        @Override
+        public int fill(FluidStack resource, boolean doFill) {
+            
+            return super.fill(resource, doFill);
+        }
+        @Override
+        public FluidStack drain(int maxDrain, boolean doDrain) {
+           
+            return super.drain(maxDrain, doDrain);
+        }
+        
+        
     }
-
-    @Override
-    public FluidStack drain(int maxDrain, boolean doDrain) {
-
-        return tank.drain(maxDrain, doDrain);
-    }
-
-    @Override
-    public void writeToNBT(NBTTagCompound tCompound) {
-
-        tank.writeToNBT(tCompound);
-        super.writeToNBT(tCompound);
-    }
-
-    @Override
-    public void readFromNBT(NBTTagCompound tCompound) {
-
-        tank = tank.readFromNBT(tCompound);
-        super.readFromNBT(tCompound);
-    }
-
+    
+    FluidPump tank = new FluidPump();
+    
     @Override
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-
-        return fill(resource, doFill);
+       
+       return resource == null? 0 : tank.fill(resource, doFill); 
     }
 
     @Override
     public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
-
-        return drain(resource.amount, doDrain);
+        
+        return tank.getFluid() == null? null : tank.drain(tank.getFluidAmount(), doDrain); 
     }
 
     @Override
     public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-
-        return drain(maxDrain, doDrain);
+       
+        return tank.getFluid() == null? null : tank.drain(maxDrain, doDrain); 
     }
 
     @Override
     public boolean canFill(ForgeDirection from, Fluid fluid) {
-
-        if (fluid == FluidRegistry.WATER)
-            return true;
+        
         return false;
     }
 
     @Override
     public boolean canDrain(ForgeDirection from, Fluid fluid) {
-
-        if (fluid == FluidRegistry.WATER && from != ForgeDirection.DOWN)
-            return true;
-        return false;
+        
+        return fluid == FluidRegistry.WATER? true : false;
     }
 
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-
-        return new FluidTankInfo[] { tank.getInfo() };
+       
+        return new FluidTankInfo[]{ tank.getInfo() };
     }
-
+    
+    @Override
+    public void writeToNBT(NBTTagCompound tCompound) {
+        tCompound.setInteger("ticker", ticker);
+        tank.writeToNBT(tCompound);
+        super.writeToNBT(tCompound);
+    }
+    
+    @Override
+    public void readFromNBT(NBTTagCompound tCompound) {
+        ticker = tCompound.getInteger("ticker");
+        tank.readFromNBT(tCompound);     
+        super.readFromNBT(tCompound);
+        markForRenderUpdate();
+    }
+    
+    public FluidPump getTankManager(){
+        
+        return tank;
+    }
+    
     int ticker;
-
+    int waterTicker;
     @Override
     public void updateEntity() {
-
         ticker++;
-        if (ticker >= 10) {
-            if (worldObj.getBlock(xCoord, yCoord - 1, zCoord) == Blocks.water && worldObj.getBlockMetadata(xCoord, yCoord - 1, zCoord) == 0) {
-                if (tank.getFluidAmount() < tank.getCapacity()) {
-
-                    fill(new FluidStack(FluidRegistry.WATER, 1000), true);
-                    worldObj.setBlock(xCoord, yCoord - 1, zCoord, Blocks.air, 0, 7);
-
-                }
-            }
+        waterTicker++;
+        /** Reloads after a minute **/
+        
+        if(ticker >= 1200){
+            reloadConnectionCache();
             ticker = 0;
         }
-        forceOutput();
-        super.updateEntity();
-    }
-
-    public void forceOutput() {
-
-        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-            if (worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ) instanceof IFluidHandler) {
-                IFluidHandler tile = (IFluidHandler) worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord
-                        + dir.offsetZ);
-                if (tank.getFluid() != null && tank.getFluidAmount() > 0) {
-
-                    FluidStack fluid = tank.getFluid().copy();
-                    fluid.amount = tank.getFluidAmount();
-                    int amount = tile.fill(dir, fluid, false);
-                    if (amount > 0) {
-                        tile.fill(dir, fluid, true);
-                        drain(amount, true);
-                    } else {
-                        continue;
+            
+        for(int i = 0; i < visualConnectionCache.length; i++){
+            if(visualConnectionCache[i] && tank.getFluid() != null){
+                ForgeDirection dir = ForgeDirection.getOrientation(i);
+                TileEntity tileEntity = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
+                
+                if(!(tileEntity instanceof IFluidHandler) || tileEntity == null) return;
+                
+                    IFluidHandler tile = (IFluidHandler) tileEntity;
+                if(tile.canFill(dir, tank.getFluid().getFluid())){
+                    
+                    int amount = tile.fill(dir, tank.getFluid(), true);
+                    tank.drain(amount, true);
+                }
+            }
+        }
+        if(waterTicker >= 10){
+            
+            if(worldObj.getBlock(xCoord, yCoord-1, zCoord) == Blocks.water){
+                if(worldObj.getBlockMetadata(xCoord, yCoord, zCoord) == 0){
+                    if(!(tank.getFluidAmount() >= 8000)){
+                        
+                        tank.fill(new FluidStack(FluidRegistry.WATER, 1000), true);
+                        worldObj.setBlockToAir(xCoord, yCoord - 1, zCoord);
+                        waterTicker = 0;    
                     }
                 }
             }
         }
-
+        super.updateEntity();
+    }
+    
+    public void sendMessage(EntityPlayer player){
+        if(tank.getFluid() != null && !worldObj.isRemote)
+            ChatMessageUtil.sendChatMessageToPlayer(player, "amount: " + tank.getFluid().amount);
     }
 
-    public void sendMessageToPlayer(EntityPlayer player) {
-
-        if (!worldObj.isRemote && tank.getFluid() != null) {
-            player.addChatComponentMessage(new ChatComponentText("Fluid Amount: " + tank.getFluid().amount));
-        }
-    }
-
-    public void updateBlock() {
-
-        if (worldObj.isRemote)
-            return;
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-    }
 }

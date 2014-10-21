@@ -2,14 +2,11 @@ package com.thefjong.factorialautomation.blocks.machines;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 
 import com.qmunity.lib.tileentity.TileBase;
 import com.thefjong.factorialautomation.blocks.BlockContainerBase;
@@ -30,21 +27,11 @@ public class BlockPipe extends BlockContainerBase {
         super(Material.iron, name, tileClass);
 
     }
-
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
-
-        TilePipe pipe = (TilePipe) world.getTileEntity(x, y, z);
-        pipe.sendMessageToPlayer(player);
-        if (player.inventory.getCurrentItem() != null) {
-
-            if (player.inventory.getCurrentItem().getItem() == Items.water_bucket) {
-                pipe.fill(new FluidStack(FluidRegistry.WATER, 1000), true);
-            }
-        }
+        ((TilePipe)world.getTileEntity(x, y, z)).sendMessage(player);
         return super.onBlockActivated(world, x, y, z, player, par6, par7, par8, par9);
     }
-
     @Override
     public int getRenderType() {
 
