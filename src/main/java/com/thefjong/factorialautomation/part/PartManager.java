@@ -17,7 +17,11 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import com.qmunity.lib.part.PartRegistry;
 import com.thefjong.factorialautomation.part.pipe.PartPipe;
-
+/**
+ * 
+ * @author Amadornes
+ *
+ */
 public class PartManager {
 
     private static Map<String, PartInfo> parts = new HashMap<String, PartInfo>();

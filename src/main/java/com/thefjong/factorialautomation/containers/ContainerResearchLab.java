@@ -30,7 +30,8 @@ import com.thefjong.factorialautomation.tileentities.machines.TileResearchLab;
  ****************************************************
  * Parts copied from ContainerDeployer from BluePower
  * 
- * @author MineMaarten **************************************************
+ * @author MineMaarten 
+ * **************************************************
  * 
  * @author TheFjong
  */

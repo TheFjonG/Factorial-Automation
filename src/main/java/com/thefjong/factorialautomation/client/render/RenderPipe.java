@@ -22,7 +22,7 @@ import org.lwjgl.opengl.GL11;
 
 /**
  *
- * @author The Fjong
+ * @author Dmillerw
  *
  */
 public class RenderPipe extends TileEntitySpecialRenderer implements ISimpleBlockRenderingHandler {

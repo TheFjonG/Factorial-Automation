@@ -1,7 +1,11 @@
 package com.thefjong.factorialautomation.part;
 
 import net.minecraft.nbt.NBTTagCompound;
-
+/**
+ * 
+ * @author Amadornes
+ *
+ */
 public abstract class FAPartFaceRotate extends FAPartFace {
 
     private int rotation = 0;

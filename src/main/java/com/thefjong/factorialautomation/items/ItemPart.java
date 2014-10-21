@@ -17,7 +17,11 @@ import com.thefjong.factorialautomation.part.PartInfo;
 import com.thefjong.factorialautomation.part.PartManager;
 import com.thefjong.factorialautomation.reference.Reference;
 import com.thefjong.factorialautomation.utils.CustomTabs;
-
+/**
+ * 
+ * @author Amadornes
+ *
+ */
 public class ItemPart extends ItemMultipart {
 
     public ItemPart(String name) {

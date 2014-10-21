@@ -1,7 +1,11 @@
 package com.thefjong.factorialautomation.utils;
 
 import net.minecraft.util.IIcon;
-
+/**
+ *  
+ * @author TheFjong
+ * 
+ */
 public class CustomIconFlipped implements IIcon {
 
     private final IIcon baseIcon;

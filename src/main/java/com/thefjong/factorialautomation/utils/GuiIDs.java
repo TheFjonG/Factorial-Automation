@@ -1,9 +1,9 @@
 package com.thefjong.factorialautomation.utils;
 
 /**
+ *  
+ * @author TheFjong, MineMaarten, Amadornes, Dmillerw
  * 
- * @author The Fjong
- *
  */
 public enum GuiIDs {
     INVALID, RESEARCH_TABLE

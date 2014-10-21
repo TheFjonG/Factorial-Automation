@@ -10,9 +10,9 @@ import com.thefjong.factorialautomation.tileentities.machines.TileResearchLab;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
+ *  
+ * @author TheFjong, MineMaarten, Amadornes, Dmillerw
  * 
- * @author The Fjong
- *
  */
 public class TileEntities {
 

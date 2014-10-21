@@ -14,7 +14,11 @@ import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
 
 import com.qmunity.lib.tileentity.TileBase;
-
+/**
+ *  
+ * @author TheFjong
+ * 
+ */
 public class TilePump extends TileBase implements IFluidTank, IFluidHandler {
 
     /** Do not use this!.. use tank.getFluid() instead! **/

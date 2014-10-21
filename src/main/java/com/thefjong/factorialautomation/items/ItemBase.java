@@ -10,7 +10,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
  *
- * @author The Fjong
+ * @author TheFjong
  *
  */
 public class ItemBase extends Item {

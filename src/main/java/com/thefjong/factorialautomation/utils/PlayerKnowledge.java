@@ -4,7 +4,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * 
- * @author The Fjong
+ * @author TheFjong
  *
  */
 public class PlayerKnowledge extends net.minecraft.world.WorldSavedData {

@@ -1,5 +1,9 @@
 package com.thefjong.factorialautomation.handlers;
-
+/**
+ * 
+ * @author TheFjong
+ *
+ */
 public interface IProxyHandler {
 
     public abstract void registerRenders();

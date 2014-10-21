@@ -3,7 +3,11 @@ package com.thefjong.factorialautomation.utils;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
-
+/**
+ * 
+ * @author TheFjong
+ *
+ */
 public enum EnumResearch {
     ;
 

@@ -8,11 +8,10 @@ import com.thefjong.factorialautomation.handlers.ModEventHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 
 /**
- *
- * @author The Fjong
- *
+ *  
+ * @author TheFjong, MineMaarten, Amadornes, Dmillerw
+ * 
  */
-
 public class CommonProxy implements IProxyHandler {
 
     @Override

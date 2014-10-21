@@ -2,7 +2,11 @@ package com.thefjong.factorialautomation.part;
 
 import com.qmunity.lib.part.IPart;
 import com.qmunity.lib.part.IPartFactory;
-
+/**
+ * 
+ * @author Amadornes
+ *
+ */
 public class PartFactory implements IPartFactory {
 
     @Override

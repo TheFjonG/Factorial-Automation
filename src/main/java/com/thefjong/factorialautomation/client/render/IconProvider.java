@@ -7,7 +7,11 @@ import net.minecraftforge.client.event.TextureStitchEvent;
 import com.thefjong.factorialautomation.reference.Reference;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-
+/**
+ * 
+ * @author TheFjong
+ *
+ */
 public class IconProvider {
 
     public static IIcon clouds_item;

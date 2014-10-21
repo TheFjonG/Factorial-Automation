@@ -3,7 +3,6 @@ package com.thefjong.factorialautomation.blocks.machines;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemBucket;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
@@ -19,7 +18,11 @@ import com.thefjong.factorialautomation.tileentities.machines.TileBoiler;
 import com.thefjong.factorialautomation.tileentities.machines.TilePipe;
 import com.thefjong.factorialautomation.tileentities.machines.TilePump;
 import com.thefjong.factorialautomation.tileentities.machines.TileSteamEngine;
-
+/**
+ * 
+ * @author TheFjong
+ *
+ */
 public class BlockPipe extends BlockContainerBase {
 
     public BlockPipe(String name, Class<? extends TileBase> tileClass) {

@@ -10,10 +10,14 @@ import com.thefjong.factorialautomation.blocks.BlockContainerBase;
 import com.thefjong.factorialautomation.handlers.KnowledgeHandler;
 import com.thefjong.factorialautomation.tileentities.machines.TileResearchLab;
 import com.thefjong.factorialautomation.utils.GuiIDs;
-
+/**
+ * 
+ * @author TheFjong
+ *
+ */
 public class BlockResearchLab extends BlockContainerBase {
 
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public BlockResearchLab(String name, Class TileEntity) {
 
         super(Material.iron, name, TileEntity);

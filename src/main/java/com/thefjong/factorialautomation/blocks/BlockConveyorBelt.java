@@ -20,12 +20,16 @@ import com.thefjong.factorialautomation.utils.CustomIconFlipped;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-
+/**
+ * 
+ * @author MineMaarten
+ *
+ */
 public class BlockConveyorBelt extends BlockContainerBase {
 
     private IIcon turnLeftIcon;
 
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public BlockConveyorBelt(String name, Class TileEntity) {
 
         super(Material.iron, name, TileEntity);

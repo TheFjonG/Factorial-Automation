@@ -18,7 +18,11 @@ import com.thefjong.factorialautomation.tileentities.machines.TileConveyorBelt.S
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-
+/**
+ * 
+ * @author MineMaarten
+ *
+ */
 public class RenderConveyorBelt extends TileEntitySpecialRenderer implements ISimpleBlockRenderingHandler {
 
     public static final int RENDER_ID = RenderingRegistry.getNextAvailableRenderId();

@@ -3,9 +3,9 @@ package com.thefjong.factorialautomation.reference;
 import net.minecraftforge.common.util.ForgeDirection;
 
 /**
+ *  
+ * @author TheFjong, MineMaarten, Amadornes, Dmillerw
  * 
- * @author The Fjong
- *
  */
 public class ReferenceBlocks {
 

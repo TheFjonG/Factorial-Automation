@@ -1,9 +1,9 @@
 package com.thefjong.factorialautomation.reference;
 
 /**
- *
- * @author The Fjong
- *
+ *  
+ * @author TheFjong, MineMaarten, Amadornes, Dmillerw
+ * 
  */
 public class ReferenceItems {
 

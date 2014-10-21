@@ -12,7 +12,7 @@ import cpw.mods.fml.common.network.IGuiHandler;
 
 /**
  * 
- * @author The Fjong
+ * @author TheFjong
  *
  */
 public class GuiHandler implements IGuiHandler {

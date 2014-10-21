@@ -20,9 +20,9 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
 /**
- *
- * @author The Fjong
- *
+ *  
+ * @author TheFjong, MineMaarten, Amadornes, Dmillerw
+ * 
  */
 @Mod(modid = Reference.MODID, version = Reference.VERSION, name = Reference.NAME)
 public class FactorialAutomation {

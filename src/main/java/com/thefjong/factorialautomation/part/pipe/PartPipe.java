@@ -8,7 +8,11 @@ import com.qmunity.lib.vec.Vec3dCube;
 import com.thefjong.factorialautomation.part.FAPart;
 import com.thefjong.factorialautomation.reference.Reference;
 import com.thefjong.factorialautomation.reference.ReferenceParts;
-
+/**
+ * 
+ * @author Amadornes
+ *
+ */
 public class PartPipe extends FAPart {
 
     @Override

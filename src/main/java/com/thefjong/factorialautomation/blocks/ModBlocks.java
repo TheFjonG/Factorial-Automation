@@ -21,7 +21,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 
 /**
  * 
- * @author The Fjong
+ * @author TheFjong, MineMaarten, Amadornes, Dmillerw
  *
  */
 public class ModBlocks {

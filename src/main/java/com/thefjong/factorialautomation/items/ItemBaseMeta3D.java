@@ -17,7 +17,11 @@ import com.thefjong.factorialautomation.reference.Reference;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-
+/**
+ * 
+ * @author Amadornes
+ *
+ */
 public class ItemBaseMeta3D extends ItemBase3D {
 
     @SideOnly(Side.CLIENT)

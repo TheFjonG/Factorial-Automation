@@ -25,9 +25,12 @@ import com.qmunity.lib.vec.Vec3i;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-
-public abstract class FAPart extends PartBase implements IPartSelectable, IPartCollidable, IPartOccluding, IPartRenderable,
-IPartUpdateListener {
+/**
+ * 
+ * @author Amadornes
+ *
+ */
+public abstract class FAPart extends PartBase implements IPartSelectable, IPartCollidable, IPartOccluding, IPartRenderable,IPartUpdateListener {
 
     public abstract String getUnlocalizedName();
 

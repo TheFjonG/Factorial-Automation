@@ -9,10 +9,15 @@ import org.lwjgl.opengl.GL11;
 import com.thefjong.factorialautomation.containers.ContainerResearchLab;
 import com.thefjong.factorialautomation.reference.Reference;
 import com.thefjong.factorialautomation.tileentities.machines.TileResearchLab;
-
+/**
+ * 
+ * @author TheFjong
+ *
+ */
 public class GuiResearchLab extends GuiContainer {
 
     private static final ResourceLocation textureLocation = new ResourceLocation(Reference.MODID, "textures/gui/researchlab.png");
+    @SuppressWarnings("unused")
     private final TileResearchLab tileResearchLab;
 
     public GuiResearchLab(InventoryPlayer playerInventory, TileResearchLab tile) {

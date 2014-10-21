@@ -4,7 +4,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.qmunity.lib.part.IPartFace;
-
+/**
+ * 
+ * @author Amadornes
+ *
+ */
 public abstract class FAPartFace extends FAPart implements IPartFace {
 
     private ForgeDirection face = null;

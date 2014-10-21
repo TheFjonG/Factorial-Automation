@@ -8,7 +8,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import com.thefjong.factorialautomation.items.Items;
 import com.thefjong.factorialautomation.reference.ReferenceBlocks;
 import com.thefjong.factorialautomation.utils.TileEntityOwnable;
-
 /**
  *
  * @author The Fjong

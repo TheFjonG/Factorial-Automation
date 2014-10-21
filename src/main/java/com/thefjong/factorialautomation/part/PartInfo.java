@@ -6,7 +6,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 import com.thefjong.factorialautomation.items.Items;
-
+/**
+ * 
+ * @author Amadornes
+ *
+ */
 public class PartInfo {
 
     private String type;

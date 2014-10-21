@@ -4,7 +4,11 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import com.qmunity.lib.tileentity.TileBase;
 import com.thefjong.factorialautomation.handlers.KnowledgeHandler;
-
+/**
+ *  
+ * @author TheFjong
+ * 
+ */
 public class TileEntityOwnable extends TileBase {
 
     public KnowledgeHandler playerOwner = null;

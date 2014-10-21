@@ -14,7 +14,11 @@ import com.thefjong.factorialautomation.tileentities.machines.TilePipe;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
-
+/**
+ *  
+ * @author TheFjong, MineMaarten, Amadornes, Dmillerw
+ * 
+ */
 public class ClientProxy extends CommonProxy {
 
     @Override
@@ -25,14 +29,14 @@ public class ClientProxy extends CommonProxy {
             MinecraftForgeClient.registerItemRenderer(item, renderer);
 
         RenderingRegistry.registerBlockHandler(new RenderConveyorBelt());
+        
         ClientRegistry.bindTileEntitySpecialRenderer(TileConveyorBelt.class, new RenderConveyorBelt());
         RenderingRegistry.registerBlockHandler(new RenderPipe());
         ClientRegistry.bindTileEntitySpecialRenderer(TilePipe.class, new RenderPipe());
     }
 
     @Override
-    public void registerEventHandlers() {
-
+    public void registerEventHandlers(){
         super.registerEventHandlers();
 
         IconProvider iconProvider = new IconProvider();

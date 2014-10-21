@@ -14,7 +14,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
  * 
- * @author The Fjong
+ * @author TheFjong
  *
  */
 public class BlockContainerBase extends BlockTileBase implements ITileEntityProvider {

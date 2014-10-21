@@ -16,7 +16,11 @@ import com.thefjong.factorialautomation.utils.ChatMessageUtil;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
-
+/**
+ * 
+ * @author TheFjong
+ *
+ */
 public class ModEventHandler {
 
     Random random = new Random();

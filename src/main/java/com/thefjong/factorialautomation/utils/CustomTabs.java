@@ -5,15 +5,16 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import com.thefjong.factorialautomation.items.Items;
+import com.thefjong.factorialautomation.reference.Reference;
 
 /**
  *
- * @author The Fjong
+ * @author TheFjong
  *
  */
 public class CustomTabs {
 
-    public static CreativeTabs forBlocks = new CreativeTabs(CreativeTabs.getNextID(), "sciencecraft.blocks") {
+    public static CreativeTabs forBlocks = new CreativeTabs(CreativeTabs.getNextID(), Reference.MODID + ".blocks") {
 
         @Override
         public Item getTabIconItem() {
@@ -23,7 +24,7 @@ public class CustomTabs {
 
     };
 
-    public static CreativeTabs forItems = new CreativeTabs(CreativeTabs.getNextID(), "sciencecraft.items") {
+    public static CreativeTabs forItems = new CreativeTabs(CreativeTabs.getNextID(), Reference.MODID + "sciencecraft.items") {
 
         @Override
         public ItemStack getIconItemStack() {

@@ -5,7 +5,11 @@ import net.minecraft.item.Item;
 import com.thefjong.factorialautomation.reference.ReferenceItems;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-
+/**
+ * 
+ * @author TheFjong, MineMaarten, Amadornes, Dmillerw
+ *
+ */
 public class Items {
 
     public static Item brainfragment;

@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 
 /**
  * 
- * @author The Fjong
+ * @author TheFjong
  *
  */
 public class KnowledgeHandler {

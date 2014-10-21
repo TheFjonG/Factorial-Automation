@@ -7,7 +7,11 @@ import com.qmunity.lib.helper.RedstoneHelper;
 import com.qmunity.lib.part.IPart;
 import com.qmunity.lib.part.IPartFace;
 import com.qmunity.lib.util.Dir;
-
+/**
+ * 
+ * @author Amadornes
+ *
+ */
 public class RedstoneConnection {
 
     private IPart part;

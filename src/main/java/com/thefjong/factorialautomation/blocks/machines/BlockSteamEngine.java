@@ -4,7 +4,11 @@ import net.minecraft.block.material.Material;
 
 import com.qmunity.lib.tileentity.TileBase;
 import com.thefjong.factorialautomation.blocks.BlockContainerBase;
-
+/**
+ * 
+ * @author TheFjong
+ *
+ */
 public class BlockSteamEngine extends BlockContainerBase {
 
     public BlockSteamEngine(String name, Class<? extends TileBase> tileClass) {
