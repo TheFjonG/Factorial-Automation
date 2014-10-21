@@ -131,7 +131,24 @@ public class RenderPipe extends TileEntitySpecialRenderer implements ISimpleBloc
                         connection2 = ForgeDirection.getOrientation(i);
                 }
             }
-
+            
+            if(connection1 == ForgeDirection.SOUTH && connection2 == ForgeDirection.UP || connection2 == ForgeDirection.SOUTH && connection1 == ForgeDirection.UP){
+               
+                GL11.glRotated(180, 0, 1, 0);
+            }else
+            if(connection1 == ForgeDirection.NORTH && connection2 == ForgeDirection.UP || connection2 == ForgeDirection.NORTH && connection1 == ForgeDirection.UP){
+                
+                GL11.glRotated(180, 0, 1, 0);
+            }else
+            if(connection1 == ForgeDirection.SOUTH && connection2 == ForgeDirection.DOWN || connection2 == ForgeDirection.SOUTH && connection1 == ForgeDirection.DOWN){
+                
+                GL11.glRotated(180, 0, 1, 0);
+            }else
+            if(connection1 == ForgeDirection.NORTH && connection2 == ForgeDirection.DOWN || connection2 == ForgeDirection.NORTH && connection1 == ForgeDirection.DOWN){
+                
+                GL11.glRotated(180, 0, 1, 0); 
+            }
+            
             if (connection1.getOpposite() == connection2 || connection2.getOpposite() == connection1) {
                 if (connection1 == ForgeDirection.NORTH || connection1 == ForgeDirection.SOUTH) {
                     // NO ROTATION
