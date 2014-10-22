@@ -153,30 +153,31 @@ public class TilePump extends TileBase implements IFluidHandler {
         }
             
         for(int i = 0; i < visualConnectionCache.length; i++){
-            if(visualConnectionCache[i] && tank.getFluid() != null){
+            if(visualConnectionCache[i]){
                 ForgeDirection dir = ForgeDirection.getOrientation(i);
                 TileEntity tileEntity = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
                 
                 if(!(tileEntity instanceof IFluidHandler) || tileEntity == null) return;
                 
                     IFluidHandler tile = (IFluidHandler) tileEntity;
-                if(tile.canFill(dir, tank.getFluid().getFluid())){
-                    
-                    int amount = tile.fill(dir, tank.getFluid(), true);
-                    tank.drain(amount, true);
-                }
-            }
-        }
-        if(waterTicker >= 10){
-            
-            if(worldObj.getBlock(xCoord, yCoord-1, zCoord) == Blocks.water){
-                if(worldObj.getBlockMetadata(xCoord, yCoord, zCoord) == 0){
-                    if(!(tank.getFluidAmount() >= 8000)){
-                        
-                        tank.fill(new FluidStack(FluidRegistry.WATER, 1000), true);
-                        worldObj.setBlockToAir(xCoord, yCoord - 1, zCoord);
-                        waterTicker = 0;    
-                    }
+                    if(tile.canFill(dir, FluidRegistry.WATER)){
+                        if(worldObj.getBlock(xCoord, yCoord-1, zCoord) == Blocks.water){
+                            if(worldObj.getBlockMetadata(xCoord, yCoord, zCoord) == 0){
+                                
+                                    int amount = tile.fill(dir, new FluidStack(FluidRegistry.WATER, 1000), false);
+                                    if(amount > 0){
+                                        tile.fill(dir, new FluidStack(FluidRegistry.WATER, amount), true);
+                                        tank.fill(new FluidStack(FluidRegistry.WATER,1000 - amount), true);
+                                        worldObj.setBlockToAir(xCoord, yCoord - 1, zCoord);
+                                    }       
+                            }
+                        }else if(tank.getFluidAmount() > 0){
+                            int amount = tile.fill(dir, new FluidStack(FluidRegistry.WATER, 1000), false);
+                            if(amount > 0){
+                                tile.fill(dir, new FluidStack(FluidRegistry.WATER, amount), true);
+                                tank.fill(new FluidStack(FluidRegistry.WATER,1000 - amount), true);
+                            } 
+                        }
                 }
             }
         }
