@@ -38,6 +38,7 @@ public class FactorialAutomation {
     private void preInit(FMLPreInitializationEvent event) {
 
         ModBlocks.init();
+        ModBlocks.registerBlocks();
         Items.init();
         Items.registerInit();
         TileEntities.registerTiles();

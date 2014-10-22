@@ -1,6 +1,5 @@
-package com.thefjong.factorialautomation.tileentities.machines;
+    package com.thefjong.factorialautomation.tileentities.machines;
 
-import tv.twitch.chat.ChatMessage;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -159,9 +158,12 @@ public class TilePipe extends TileBase implements IFluidHandler {
                 
                     IFluidHandler tile = (IFluidHandler) tileEntity;
                 if(!(tile instanceof TilePipe) && tile.canFill(dir, pipe.getFluid().getFluid())){
+                    if(!worldObj.isRemote){
+                        
+                        int amount = tile.fill(dir, pipe.getFluid(), true);
+                        pipe.drain(amount, true);
+                    }
                     
-                    int amount = tile.fill(dir, pipe.getFluid(), true);
-                    pipe.drain(amount, true);
                 }else if(tile instanceof TilePipe){
                     
                     TilePipe nextPipe = (TilePipe) tile;

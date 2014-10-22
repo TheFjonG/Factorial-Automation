@@ -1,5 +1,9 @@
 package com.thefjong.factorialautomation.blocks;
 
+import net.minecraft.block.Block;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+
 import com.thefjong.factorialautomation.blocks.machines.BlockBoiler;
 import com.thefjong.factorialautomation.blocks.machines.BlockEnergyPole;
 import com.thefjong.factorialautomation.blocks.machines.BlockPipe;
@@ -15,9 +19,7 @@ import com.thefjong.factorialautomation.tileentities.machines.TilePump;
 import com.thefjong.factorialautomation.tileentities.machines.TileResearchLab;
 import com.thefjong.factorialautomation.tileentities.machines.TileSteamEngine;
 
-import net.minecraft.block.Block;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
  * 
@@ -38,7 +40,7 @@ public class ModBlocks {
 
     // Fluids
     public static Fluid fluidSteam;
-
+    public static Block blockSteam;
     public static void init() {
 
         ResearchTable = new BlockResearchLab(ReferenceBlocks.RESEARCH_LAB_NAME, TileResearchLab.class);
@@ -52,12 +54,15 @@ public class ModBlocks {
         energyPole = new BlockEnergyPole(ReferenceBlocks.ENERGY_POLE_NAME, TileEnergyPole.class);
 
         // Fluids
-        fluidSteam = new Fluid(ReferenceBlocks.STEAM_FLUID_NAME);
+        fluidSteam = new FluidSteam(ReferenceBlocks.STEAM_FLUID_NAME);
+        FluidRegistry.registerFluid(ModBlocks.fluidSteam);
+        blockSteam = new BlockSteam(fluidSteam);
+        GameRegistry.registerBlock(ModBlocks.blockSteam, ReferenceBlocks.STEAM_FLUID_NAME);
     }
 
     public static void registerBlocks() {
-
-        FluidRegistry.registerFluid(fluidSteam);
-
+        
+        
+        
     }
 }

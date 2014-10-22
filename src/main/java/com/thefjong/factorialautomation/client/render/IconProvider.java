@@ -9,7 +9,7 @@ import com.thefjong.factorialautomation.reference.Reference;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 /**
  * 
- * @author TheFjong
+ * @author Amadornes
  *
  */
 public class IconProvider {
@@ -18,15 +18,14 @@ public class IconProvider {
     public static IIcon clouds_block;
 
     @SubscribeEvent
-    public void onTextureStitch(TextureStitchEvent event) {
+    public void onTextureStitch(TextureStitchEvent.Pre event) {
 
         TextureMap reg = event.map;
-
+        
         if (reg.getTextureType() == 0) {// Block
             clouds_block = reg.registerIcon(Reference.MODID + ":misc/clouds");
         } else {// Item
             clouds_item = reg.registerIcon(Reference.MODID + ":misc/clouds");
         }
     }
-
 }

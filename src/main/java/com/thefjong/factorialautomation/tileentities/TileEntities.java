@@ -1,6 +1,7 @@
 package com.thefjong.factorialautomation.tileentities;
 
 import com.thefjong.factorialautomation.reference.ReferenceBlocks;
+import com.thefjong.factorialautomation.tileentities.machines.TileBoiler;
 import com.thefjong.factorialautomation.tileentities.machines.TileConveyorBelt;
 import com.thefjong.factorialautomation.tileentities.machines.TileEnergyPole;
 import com.thefjong.factorialautomation.tileentities.machines.TilePipe;
@@ -24,6 +25,6 @@ public class TileEntities {
         GameRegistry.registerTileEntity(TilePump.class, ReferenceBlocks.PUMP_NAME);
         GameRegistry.registerTileEntity(TilePipe.class, ReferenceBlocks.PIPE_NAME);
         GameRegistry.registerTileEntity(TileEnergyPole.class, ReferenceBlocks.ENERGY_POLE_NAME);
-
+        GameRegistry.registerTileEntity(TileBoiler.class, ReferenceBlocks.BOILER_NAME);
     }
 }
