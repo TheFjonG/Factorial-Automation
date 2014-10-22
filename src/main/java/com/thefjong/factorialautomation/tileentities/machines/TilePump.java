@@ -175,7 +175,7 @@ public class TilePump extends TileBase implements IFluidHandler {
                             int amount = tile.fill(dir, new FluidStack(FluidRegistry.WATER, 1000), false);
                             if(amount > 0){
                                 tile.fill(dir, new FluidStack(FluidRegistry.WATER, amount), true);
-                                tank.fill(new FluidStack(FluidRegistry.WATER,1000 - amount), true);
+                                tank.drain(amount, true);
                             } 
                         }
                 }

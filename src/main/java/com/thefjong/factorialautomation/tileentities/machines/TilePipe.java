@@ -170,19 +170,32 @@ public class TilePipe extends TileBase implements IFluidHandler {
                 } else if (tile instanceof TilePipe) {
 
                     TilePipe nextPipe = (TilePipe) tile;
+
                     if (nextPipe.getPipeManager().getFluid() == null) {
+                        if (nextPipe.yCoord < yCoord) {
+                            int amount = tile.fill(dir, pipe.getFluid(), true);
+                            pipe.drain(amount, true);
+                        } else if(nextPipe.yCoord == yCoord){
 
-                        FluidStack newStack = pipe.getFluid().copy();
-                        newStack.amount /= 2;
-                        int amount = tile.fill(dir, newStack, true);
-                        pipe.drain(amount, true);
+                            FluidStack newStack = pipe.getFluid().copy();
+                            newStack.amount /= 2;
+                            int amount = tile.fill(dir, newStack, true);
+                            pipe.drain(amount, true);
+                        }
+                    } else if (pipe.getFluidAmount() > nextPipe.getPipeManager().getFluidAmount() || nextPipe.yCoord < yCoord) {
+                        if (nextPipe.yCoord < yCoord) {
+                            if (nextPipe.getPipeManager().getFluidAmount() < nextPipe.getPipeManager().getCapacity()) {
+                                int amount = tile.fill(dir, pipe.getFluid(), true);
+                                pipe.drain(amount, true);
+                            }
+                        } else if(nextPipe.yCoord == yCoord){
 
-                    } else if (pipe.getFluidAmount() > nextPipe.getPipeManager().getFluidAmount()) {
-                        int amount = (pipe.getFluidAmount() - nextPipe.getPipeManager().getFluidAmount()) / 2;
-                        FluidStack newStack = pipe.getFluid().copy();
-                        newStack.amount = amount;
-                        amount = tile.fill(dir, newStack, true);
-                        pipe.drain(amount, true);
+                            int amount = (pipe.getFluidAmount() - nextPipe.getPipeManager().getFluidAmount()) / 2;
+                            FluidStack newStack = pipe.getFluid().copy();
+                            newStack.amount = amount;
+                            amount = tile.fill(dir, newStack, true);
+                            pipe.drain(amount, true);
+                        }
                     }
                 }
             }
