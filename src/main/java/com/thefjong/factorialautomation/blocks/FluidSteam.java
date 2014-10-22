@@ -14,10 +14,10 @@ public class FluidSteam extends Fluid{
         setStillIcon((IIcon) icon);
         setFlowingIcon((IIcon) icon);
         setGaseous(true);
-        setDensity(0);
+        setDensity(-1000);
+        setViscosity(500);
         setTemperature(100);
         setBlock(ModBlocks.blockSteam);
-        
     }
    
 }

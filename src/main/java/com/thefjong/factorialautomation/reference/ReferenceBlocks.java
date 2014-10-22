@@ -16,7 +16,7 @@ public class ReferenceBlocks {
     public static final String PIPE_NAME = "pipe";
     public static final String BOILER_NAME = "boiler";
     public static final String STEAM_ENGINE_NAME = "steamengine";
-    public static final String STEAM_FLUID_NAME = "steamfluid";
+    public static final String STEAM_FLUID_NAME = "steam";
 
     public static class ConveyorBelt extends ReferenceBlocks {
 

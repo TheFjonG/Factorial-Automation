@@ -41,6 +41,7 @@ public class ModBlocks {
     // Fluids
     public static Fluid fluidSteam;
     public static Block blockSteam;
+    
     public static void init() {
 
         ResearchTable = new BlockResearchLab(ReferenceBlocks.RESEARCH_LAB_NAME, TileResearchLab.class);
@@ -54,12 +55,22 @@ public class ModBlocks {
         energyPole = new BlockEnergyPole(ReferenceBlocks.ENERGY_POLE_NAME, TileEnergyPole.class);
 
         // Fluids
+        registerSteam();
+    }
+    
+    public static void registerSteam(){
+        if(FluidRegistry.isFluidRegistered("steam")){
+            
+            fluidSteam = FluidRegistry.getFluid("steam");
+        }else
+            
         fluidSteam = new FluidSteam(ReferenceBlocks.STEAM_FLUID_NAME);
         FluidRegistry.registerFluid(ModBlocks.fluidSteam);
+        
         blockSteam = new BlockSteam(fluidSteam);
         GameRegistry.registerBlock(ModBlocks.blockSteam, ReferenceBlocks.STEAM_FLUID_NAME);
     }
-
+    
     public static void registerBlocks() {
         
         

@@ -8,6 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import com.thefjong.factorialautomation.items.Items;
 import com.thefjong.factorialautomation.reference.ReferenceBlocks;
 import com.thefjong.factorialautomation.utils.TileEntityOwnable;
+
 /**
  *
  * @author The Fjong
@@ -125,8 +126,7 @@ public class TileResearchLab extends TileEntityOwnable implements IInventory {
             return true;
         }
         if (slot > 3
-                && (itemStack.getItem() == Items.upgradeeffectivity || itemStack.getItem() == Items.upgradeproductivity || itemStack
-                        .getItem() == Items.upgradespeed)) {
+                && (itemStack.getItem() == Items.upgradeeffectivity || itemStack.getItem() == Items.upgradeproductivity || itemStack.getItem() == Items.upgradespeed)) {
             return true;
         }
         return false;

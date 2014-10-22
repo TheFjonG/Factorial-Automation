@@ -172,10 +172,11 @@ public class TilePipe extends TileBase implements IFluidHandler {
                     TilePipe nextPipe = (TilePipe) tile;
 
                     if (nextPipe.getPipeManager().getFluid() == null) {
-                        if (nextPipe.yCoord < yCoord) {
+                        if (nextPipe.yCoord < yCoord && !pipe.getFluid().getFluid().isGaseous() || nextPipe.yCoord > yCoord
+                                && pipe.getFluid().getFluid().isGaseous()) {
                             int amount = tile.fill(dir, pipe.getFluid(), true);
                             pipe.drain(amount, true);
-                        } else if(nextPipe.yCoord == yCoord){
+                        } else if (nextPipe.yCoord == yCoord) {
 
                             FluidStack newStack = pipe.getFluid().copy();
                             newStack.amount /= 2;
@@ -183,12 +184,13 @@ public class TilePipe extends TileBase implements IFluidHandler {
                             pipe.drain(amount, true);
                         }
                     } else if (pipe.getFluidAmount() > nextPipe.getPipeManager().getFluidAmount() || nextPipe.yCoord < yCoord) {
-                        if (nextPipe.yCoord < yCoord) {
+                        if (nextPipe.yCoord < yCoord && !pipe.getFluid().getFluid().isGaseous() || nextPipe.yCoord > yCoord
+                                && pipe.getFluid().getFluid().isGaseous()) {
                             if (nextPipe.getPipeManager().getFluidAmount() < nextPipe.getPipeManager().getCapacity()) {
                                 int amount = tile.fill(dir, pipe.getFluid(), true);
                                 pipe.drain(amount, true);
                             }
-                        } else if(nextPipe.yCoord == yCoord){
+                        } else if (nextPipe.yCoord == yCoord) {
 
                             int amount = (pipe.getFluidAmount() - nextPipe.getPipeManager().getFluidAmount()) / 2;
                             FluidStack newStack = pipe.getFluid().copy();
