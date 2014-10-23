@@ -1,5 +1,6 @@
 package com.thefjong.factorialautomation.powersystem;
 
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 /**
  * 
@@ -22,4 +23,9 @@ public interface IPowerHandler {
      * @return worldObj;
      */
     public World getWorldObj();
+    
+    /**
+     * @return The TileEntity
+     */
+    public TileEntity getTile();
 }

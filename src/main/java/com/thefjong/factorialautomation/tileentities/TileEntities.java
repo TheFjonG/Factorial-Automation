@@ -7,6 +7,7 @@ import com.thefjong.factorialautomation.tileentities.machines.TileEnergyPole;
 import com.thefjong.factorialautomation.tileentities.machines.TilePipe;
 import com.thefjong.factorialautomation.tileentities.machines.TilePump;
 import com.thefjong.factorialautomation.tileentities.machines.TileResearchLab;
+import com.thefjong.factorialautomation.tileentities.machines.TileSteamEngine;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -26,5 +27,6 @@ public class TileEntities {
         GameRegistry.registerTileEntity(TilePipe.class, ReferenceBlocks.PIPE_NAME);
         GameRegistry.registerTileEntity(TileEnergyPole.class, ReferenceBlocks.ENERGY_POLE_NAME);
         GameRegistry.registerTileEntity(TileBoiler.class, ReferenceBlocks.BOILER_NAME);
+        GameRegistry.registerTileEntity(TileSteamEngine.class, ReferenceBlocks.STEAM_ENGINE_NAME);
     }
 }

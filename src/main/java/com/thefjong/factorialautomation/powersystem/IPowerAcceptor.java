@@ -6,7 +6,7 @@ import net.minecraftforge.common.util.ForgeDirection;
  * @author TheFjong
  *
  */
-public interface IPowerAcceptor {
+public interface IPowerAcceptor extends IPowerHandler{
     
     /**
      * @param direction
@@ -21,5 +21,5 @@ public interface IPowerAcceptor {
      * @param doDrain
      * @return Amount accepted
      */
-    public int fillEnergy(ForgeDirection from, int maxFill, boolean doDrain);
+    public int fillEnergy(ForgeDirection from, int maxFill, boolean doFill);
 }

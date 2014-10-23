@@ -2,6 +2,7 @@ package com.thefjong.factorialautomation.tileentities.machines;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -107,16 +108,12 @@ public class TileSteamEngine extends TileBase implements IFluidHandler, IPowerEm
     @Override
     public int getEnergyAmount() {
 
-        if (worldObj.isRemote)
-            return 0;
         return energyAmount;
     }
 
     @Override
     public int getCapacity() {
 
-        if (worldObj.isRemote)
-            return 0;
         return 1000;
     }
 
@@ -128,6 +125,8 @@ public class TileSteamEngine extends TileBase implements IFluidHandler, IPowerEm
 
     @Override
     public int drainEnergy(ForgeDirection from, int maxDrain, boolean doDrain) {
+        if (worldObj.isRemote)
+            return 0;
         int drained = maxDrain;
 
         if (energyAmount <= 0) {
@@ -157,17 +156,27 @@ public class TileSteamEngine extends TileBase implements IFluidHandler, IPowerEm
 
     @Override
     public void updateEntity() {
-        if (tank.getFluidAmount() > 10 && energyAmount < getCapacity()) {
-            energyAmount++;
-            tank.drain(10, true);
+        if (tank.getFluidAmount() > 40 && energyAmount < getCapacity()) {
+            if (!worldObj.isRemote) {
+
+                energyAmount++;
+                tank.drain(40, true);
+            }
         }
+
         super.updateEntity();
     }
 
     public void sendMessageToPlayer(EntityPlayer player) {
         if (!worldObj.isRemote) {
+            ChatMessageUtil.sendChatMessageToPlayer(player, "");
             ChatMessageUtil.sendChatMessageToPlayer(player, "Steam amount: " + tank.getFluidAmount());
             ChatMessageUtil.sendChatMessageToPlayer(player, "Energy: " + energyAmount);
         }
+    }
+
+    @Override
+    public TileEntity getTile() {
+        return this;
     }
 }
