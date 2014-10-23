@@ -117,6 +117,19 @@ public class TileBoiler extends TileBase implements IFluidHandler {
                 waterTank.drain(amount, true);
             }
         }
+        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+            if (worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ) instanceof TilePipe) {
+                TilePipe tile = (TilePipe) worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
+                if (steamTank.getFluid() != null && steamTank.getFluidAmount() > 0) {
+                    if (tile.getPipeManager().getFluid() == null || tile.getPipeManager().getFluid() != null
+                            && tile.getPipeManager().getFluid().getFluid() == ModBlocks.fluidSteam) {
+
+                        int amount = tile.fill(dir, steamTank.getFluid(), true);
+                        drain(dir.getOpposite(), amount, true);
+                    }
+                }
+            }
+        }
         super.updateEntity();
     }
 
