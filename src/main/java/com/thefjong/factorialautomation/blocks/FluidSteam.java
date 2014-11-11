@@ -20,4 +20,20 @@ public class FluidSteam extends Fluid{
         setBlock(ModBlocks.blockSteam);
     }
    
+    @Override
+    public IIcon getIcon() {
+        
+        return icon;
+    }
+    
+    @Override
+    public IIcon getStillIcon() {
+        
+        return icon;
+    }
+    @Override
+    public IIcon getFlowingIcon() {
+       
+        return icon;
+    }
 }

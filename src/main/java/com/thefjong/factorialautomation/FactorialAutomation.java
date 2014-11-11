@@ -1,8 +1,8 @@
 package com.thefjong.factorialautomation;
 
-import com.thefjong.factorialautomation.blocks.ModBlocks;
 import org.apache.logging.log4j.Logger;
 
+import com.thefjong.factorialautomation.blocks.ModBlocks;
 import com.thefjong.factorialautomation.handlers.GuiHandler;
 import com.thefjong.factorialautomation.handlers.IProxyHandler;
 import com.thefjong.factorialautomation.items.Items;
@@ -33,7 +33,7 @@ public class FactorialAutomation {
     @SidedProxy(clientSide = Reference.PROXY_LOCATION + ".ClientProxy", serverSide = Reference.PROXY_LOCATION + ".CommonProxy")
     public static IProxyHandler proxy;
     public static Logger log;
-
+    
     @EventHandler
     private void preInit(FMLPreInitializationEvent event) {
 

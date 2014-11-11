@@ -206,7 +206,9 @@ public class TilePipe extends TileBase implements IFluidHandler {
     }
 
     public void sendMessage(EntityPlayer player) {
-        if (pipe.getFluid() != null && !worldObj.isRemote)
+        if (pipe.getFluid() != null && !worldObj.isRemote){
+            ChatMessageUtil.sendChatMessageToPlayer(player, "fluid: " + pipe.getFluid().getFluid().getName());
             ChatMessageUtil.sendChatMessageToPlayer(player, "amount: " + pipe.getFluid().amount);
+        }
     }
 }

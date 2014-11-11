@@ -6,5 +6,5 @@ package com.thefjong.factorialautomation.utils;
  * 
  */
 public enum GuiIDs {
-    INVALID, RESEARCH_TABLE
+    INVALID, RESEARCH_TABLE, BOILER
 }
