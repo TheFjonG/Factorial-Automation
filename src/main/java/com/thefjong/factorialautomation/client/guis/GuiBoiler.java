@@ -33,7 +33,7 @@ public class GuiBoiler extends GuiContainer {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
-        
+        GL11.glPushMatrix();
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         int x = (width - xSize) / 2;
         int y = (height - ySize) / 2;
@@ -54,12 +54,18 @@ public class GuiBoiler extends GuiContainer {
             mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
             IIcon steamIcon = tileBoiler.steamTank.getFluid().getFluid().getIcon();
             if(steamIcon != null)
-                drawTexturedModelRectFromIcon(x+155, y+24+31-tileBoiler.getSteamProgressScaled(31), steamIcon, 31,tileBoiler.getSteamProgressScaled(31));
+                drawTexturedModelRectFromIcon(x+45, y+8-tileBoiler.getSteamProgressScaled(22), steamIcon, 90,tileBoiler.getSteamProgressScaled(22));
         }
+        float amount = (tileBoiler.heat) * 0.1F;
+        mc.renderEngine.bindTexture(textureLocation_2);
+        GL11.glColor4f(1.0F + amount, 1.0F - amount / 5, 1.0F - amount / 5, 1.0F);
+        drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
         
         //Forground
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         mc.renderEngine.bindTexture(textureLocation_0);
         drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+        
+        GL11.glPopMatrix();
     }
 }

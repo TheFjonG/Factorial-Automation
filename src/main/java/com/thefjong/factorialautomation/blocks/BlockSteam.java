@@ -24,6 +24,7 @@ public class BlockSteam extends BlockFluidClassic {
     public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
         return IconProvider.clouds_block;
     }
+    
     int ticker = 0;
     @Override
     public void updateTick(World world, int x, int y, int z, Random rand) {

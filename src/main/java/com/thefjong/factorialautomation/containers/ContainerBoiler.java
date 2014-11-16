@@ -23,6 +23,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 
 import com.thefjong.factorialautomation.tileentities.machines.TileBoiler;
 
@@ -71,5 +72,13 @@ public class ContainerBoiler extends Container {
 
         return tileBoiler.isUseableByPlayer(player);
     }
-
+    public ItemStack transferStackInSlot(EntityPlayer p_82846_1_, int p_82846_2_){
+        
+        Slot slot = (Slot)this.inventorySlots.get(0);
+        return slot != null ? slot.getStack() : null;
+    }
+    @Override
+    protected void retrySlotClick(int p_75133_1_, int p_75133_2_, boolean p_75133_3_, EntityPlayer p_75133_4_) {
+        
+    }
 }
