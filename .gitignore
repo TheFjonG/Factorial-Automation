@@ -1,23 +1,7 @@
-## gradle
-/.gradle
-/build
 
-## Other
-/dep
-/config
-/logs
-## eclipse
-/eclipse
-/.settings
-/.metadata
-/.classpath
-/.project
 /bin
-
-## intellij
-/out
-/.idea
-/*.iml
-/*.ipr
-/*.iws
-/atlassian-ide-plugin.xml
+eclipse/
+.gradle/
+.classpath
+.project
+.settings/org.eclipse.jdt.core.prefs
