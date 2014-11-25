@@ -16,8 +16,9 @@ import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
 
-import com.qmunity.lib.render.RenderHelper;
-import com.qmunity.lib.vec.Vec3dCube;
+import uk.co.qmunity.lib.render.RenderHelper;
+import uk.co.qmunity.lib.vec.Vec3dCube;
+
 import com.thefjong.factorialautomation.items.ItemBase3D;
 
 public class RenderItem3D implements IItemRenderer {

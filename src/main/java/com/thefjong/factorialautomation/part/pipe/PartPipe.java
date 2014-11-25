@@ -3,8 +3,9 @@ package com.thefjong.factorialautomation.part.pipe;
 import java.util.Arrays;
 import java.util.List;
 
-import com.qmunity.lib.vec.Vec3d;
-import com.qmunity.lib.vec.Vec3dCube;
+import uk.co.qmunity.lib.vec.Vec3d;
+import uk.co.qmunity.lib.vec.Vec3dCube;
+
 import com.thefjong.factorialautomation.part.FAPart;
 import com.thefjong.factorialautomation.reference.Reference;
 import com.thefjong.factorialautomation.reference.ReferenceParts;

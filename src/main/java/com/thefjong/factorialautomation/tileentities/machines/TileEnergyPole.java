@@ -3,13 +3,13 @@ package com.thefjong.factorialautomation.tileentities.machines;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.co.qmunity.lib.tileentity.TileBase;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import com.qmunity.lib.tileentity.TileBase;
 import com.thefjong.factorialautomation.powersystem.IPowerAcceptor;
 import com.thefjong.factorialautomation.powersystem.IPowerEmitter;
 import com.thefjong.factorialautomation.powersystem.IPowerHandler;

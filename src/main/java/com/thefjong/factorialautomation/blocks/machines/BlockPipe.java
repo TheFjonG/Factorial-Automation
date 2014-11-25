@@ -1,5 +1,6 @@
 package com.thefjong.factorialautomation.blocks.machines;
 
+import uk.co.qmunity.lib.tileentity.TileBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -8,7 +9,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import com.qmunity.lib.tileentity.TileBase;
 import com.thefjong.factorialautomation.blocks.BlockContainerBase;
 import com.thefjong.factorialautomation.client.render.RenderPipe;
 import com.thefjong.factorialautomation.tileentities.machines.TileBoiler;

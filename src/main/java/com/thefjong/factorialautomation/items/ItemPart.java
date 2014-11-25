@@ -2,6 +2,8 @@ package com.thefjong.factorialautomation.items;
 
 import java.util.List;
 
+import uk.co.qmunity.lib.item.ItemMultipart;
+import uk.co.qmunity.lib.part.IPart;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -10,8 +12,6 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import com.qmunity.lib.item.ItemMultipart;
-import com.qmunity.lib.part.IPart;
 import com.thefjong.factorialautomation.part.FAPartFace;
 import com.thefjong.factorialautomation.part.PartInfo;
 import com.thefjong.factorialautomation.part.PartManager;

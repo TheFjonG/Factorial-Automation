@@ -1,5 +1,6 @@
 package com.thefjong.factorialautomation.blocks;
 
+import uk.co.qmunity.lib.tileentity.TileBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -12,7 +13,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import com.qmunity.lib.tileentity.TileBase;
 import com.thefjong.factorialautomation.client.render.RenderConveyorBelt;
 import com.thefjong.factorialautomation.reference.ReferenceBlocks;
 import com.thefjong.factorialautomation.tileentities.machines.TileConveyorBelt;

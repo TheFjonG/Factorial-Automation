@@ -16,8 +16,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
-import com.qmunity.lib.tileentity.TileBase;
-
+import uk.co.qmunity.lib.tileentity.TileBase;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

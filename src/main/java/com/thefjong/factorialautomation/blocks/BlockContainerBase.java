@@ -1,10 +1,10 @@
 package com.thefjong.factorialautomation.blocks;
 
+import uk.co.qmunity.lib.block.BlockTileBase;
+import uk.co.qmunity.lib.tileentity.TileBase;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 
-import com.qmunity.lib.block.BlockTileBase;
-import com.qmunity.lib.tileentity.TileBase;
 import com.thefjong.factorialautomation.FactorialAutomation;
 import com.thefjong.factorialautomation.reference.Reference;
 import com.thefjong.factorialautomation.utils.CustomTabs;

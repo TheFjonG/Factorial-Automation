@@ -1,9 +1,8 @@
 package com.thefjong.factorialautomation.part;
 
+import uk.co.qmunity.lib.part.IPartFace;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import com.qmunity.lib.part.IPartFace;
 /**
  * 
  * @author Amadornes

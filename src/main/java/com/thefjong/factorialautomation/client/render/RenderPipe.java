@@ -1,8 +1,8 @@
 package com.thefjong.factorialautomation.client.render;
 
-import com.qmunity.lib.tileentity.TileBase;
 import com.thefjong.factorialautomation.reference.Reference;
 import com.thefjong.factorialautomation.tileentities.machines.TilePipe;
+
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import net.minecraft.block.Block;
@@ -18,7 +18,10 @@ import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.IFluidHandler;
+
 import org.lwjgl.opengl.GL11;
+
+import uk.co.qmunity.lib.tileentity.TileBase;
 
 /**
  *

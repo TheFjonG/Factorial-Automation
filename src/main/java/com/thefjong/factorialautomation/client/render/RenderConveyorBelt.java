@@ -12,7 +12,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
-import com.qmunity.lib.tileentity.IRotatable;
+import uk.co.qmunity.lib.tileentity.IRotatable;
+
 import com.thefjong.factorialautomation.tileentities.machines.TileConveyorBelt;
 import com.thefjong.factorialautomation.tileentities.machines.TileConveyorBelt.Section;
 

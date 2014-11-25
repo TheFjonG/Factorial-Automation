@@ -1,7 +1,7 @@
 package com.thefjong.factorialautomation.part;
 
-import com.qmunity.lib.part.IPart;
-import com.qmunity.lib.part.IPartFactory;
+import uk.co.qmunity.lib.part.IPart;
+import uk.co.qmunity.lib.part.IPartFactory;
 /**
  * 
  * @author Amadornes

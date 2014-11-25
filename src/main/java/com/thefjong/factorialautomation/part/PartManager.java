@@ -12,10 +12,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import uk.co.qmunity.lib.part.PartRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import com.qmunity.lib.part.PartRegistry;
 import com.thefjong.factorialautomation.part.pipe.PartPipe;
 /**
  * 
