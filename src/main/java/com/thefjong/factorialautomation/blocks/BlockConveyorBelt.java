@@ -1,6 +1,5 @@
 package com.thefjong.factorialautomation.blocks;
 
-import uk.co.qmunity.lib.tileentity.TileBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -12,6 +11,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import uk.co.qmunity.lib.tile.TileBase;
 
 import com.thefjong.factorialautomation.client.render.RenderConveyorBelt;
 import com.thefjong.factorialautomation.reference.ReferenceBlocks;
@@ -114,13 +114,13 @@ public class BlockConveyorBelt extends BlockContainerBase {
             int yy = y + tile.getFacingDirection().offsetY;
             int zz = z + tile.getFacingDirection().offsetZ;
 
-            int Direction = tile.getFacingDirection().getOpposite().ordinal();
+            int dir = tile.getFacingDirection().getOpposite().ordinal();
             double xMotion = 0;
             double yMotion = 0;
             double zMotion = 0;
 
-            if (Direction == ForgeDirection.EAST.ordinal() || Direction == ReferenceBlocks.ConveyorBelt.UP_TO_RIGHT_METADATA_INTEGER
-                    || Direction == ReferenceBlocks.ConveyorBelt.DOWN_TO_RIGHT_METADATA_INTEGER) {
+            if (dir == ForgeDirection.EAST.ordinal() || dir == ReferenceBlocks.ConveyorBelt.UP_TO_RIGHT_METADATA_INTEGER
+                    || dir == ReferenceBlocks.ConveyorBelt.DOWN_TO_RIGHT_METADATA_INTEGER) {
                 if (entity.posZ < z + 0.22) {
                     zMotion = 0.2D;
                 } else if (entity.posZ > z + 0.78) {
@@ -128,27 +128,27 @@ public class BlockConveyorBelt extends BlockContainerBase {
                 } else
 
                     xMotion = 0.2D;
-            } else if (Direction == ForgeDirection.SOUTH.ordinal()
-                    || Direction == ReferenceBlocks.ConveyorBelt.RIGHT_TO_DOWN_METADATA_INTEGER
-                    || Direction == ReferenceBlocks.ConveyorBelt.LEFT_TO_DOWN_METADATA_INTEGER) {
+            } else if (dir == ForgeDirection.SOUTH.ordinal()
+                    || dir == ReferenceBlocks.ConveyorBelt.RIGHT_TO_DOWN_METADATA_INTEGER
+                    || dir == ReferenceBlocks.ConveyorBelt.LEFT_TO_DOWN_METADATA_INTEGER) {
                 if (entity.posX > x + 0.78D) {
                     xMotion = -0.2D;
                 } else if (entity.posX < x + 0.22D) {
                     xMotion = 0.2D;
                 } else
                     zMotion = 0.2D;
-            } else if (Direction == ForgeDirection.WEST.ordinal()
-                    || Direction == ReferenceBlocks.ConveyorBelt.DOWN_TO_LEFT_METADATA_INTEGER
-                    || Direction == ReferenceBlocks.ConveyorBelt.UP_TO_LEFT_METADATA_INTEGER) {
+            } else if (dir == ForgeDirection.WEST.ordinal()
+                    || dir == ReferenceBlocks.ConveyorBelt.DOWN_TO_LEFT_METADATA_INTEGER
+                    || dir == ReferenceBlocks.ConveyorBelt.UP_TO_LEFT_METADATA_INTEGER) {
                 if (entity.posZ > z + 0.78D) {
                     zMotion = -0.2D;
                 } else if (entity.posZ < z + 0.22D) {
                     zMotion = 0.2D;
                 } else
                     xMotion = -0.2D;
-            } else if (Direction == ForgeDirection.NORTH.ordinal()
-                    || Direction == ReferenceBlocks.ConveyorBelt.RIGHT_TO_UP_METADATA_INTEGER
-                    || Direction == ReferenceBlocks.ConveyorBelt.LEFT_TO_UP_METADATA_INTEGER) {
+            } else if (dir == ForgeDirection.NORTH.ordinal()
+                    || dir == ReferenceBlocks.ConveyorBelt.RIGHT_TO_UP_METADATA_INTEGER
+                    || dir == ReferenceBlocks.ConveyorBelt.LEFT_TO_UP_METADATA_INTEGER) {
                 if (entity.posX < x + 0.22) {
                     xMotion = 0.2D;
                 }

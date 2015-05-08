@@ -3,12 +3,12 @@ package com.thefjong.factorialautomation.tileentities.machines;
 import java.util.ArrayList;
 import java.util.List;
 
-import uk.co.qmunity.lib.tileentity.TileBase;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+import uk.co.qmunity.lib.tile.TileBase;
 
 import com.thefjong.factorialautomation.powersystem.IPowerAcceptor;
 import com.thefjong.factorialautomation.powersystem.IPowerEmitter;
@@ -115,9 +115,9 @@ public class TileEnergyPole extends TileBase implements IPowerPole {
         for (int posX = 0; posX < radius + 1; posX++) {
             for (int posY = 0; posY < radius + 5; posY++) {
                 for (int posZ = 0; posZ < radius + 1; posZ++) {
-                    if (worldObj.getTileEntity(xCoord + posX - (radius / 2), yCoord + posY - (radius / 2), zCoord + posZ - (radius / 2)) instanceof IPowerHandler) {
-                        IPowerHandler tile = (IPowerHandler) worldObj.getTileEntity(xCoord + posX - (radius / 2), yCoord + posY - (radius / 2),
-                                zCoord + posZ - (radius / 2));
+                    if (worldObj.getTileEntity(xCoord + posX - radius / 2, yCoord + posY - radius / 2, zCoord + posZ - radius / 2) instanceof IPowerHandler) {
+                        IPowerHandler tile = (IPowerHandler) worldObj.getTileEntity(xCoord + posX - radius / 2, yCoord + posY - radius / 2, zCoord
+                                + posZ - radius / 2);
                         if (tile.getTile() != this) {
 
                             tiles.add(tile);

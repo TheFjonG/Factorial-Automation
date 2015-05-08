@@ -16,9 +16,6 @@ import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
 
-import uk.co.qmunity.lib.render.RenderHelper;
-import uk.co.qmunity.lib.vec.Vec3dCube;
-
 import com.thefjong.factorialautomation.items.ItemBase3D;
 
 public class RenderItem3D implements IItemRenderer {
@@ -35,7 +32,7 @@ public class RenderItem3D implements IItemRenderer {
         return true;
     }
 
-    private Map<Entry<Item, Integer>, Integer> lists = new HashMap<Entry<Item, Integer>, Integer>();
+    private final Map<Entry<Item, Integer>, Integer> lists = new HashMap<Entry<Item, Integer>, Integer>();
 
     @Override
     public void renderItem(ItemRenderType type, ItemStack item, Object... extraData) {
@@ -70,23 +67,23 @@ public class RenderItem3D implements IItemRenderer {
                                 for (int y = 0; y < height; y++) {
                                     int drgb = depth.getRGB(x, y);
                                     // Extract red from the pixel depth
-                                    int depthVal = (drgb & 0xFF);
+                                    int depthVal = drgb & 0xFF;
                                     // Turn it into the actual item depth
-                                    double d = (depthVal / 256D) / 16D;
+                                    double d = depthVal / 256D / 16D;
 
                                     int rgb = effect.getRGB(x, y);
-                                    int alpha = (rgb >> 24) & 0x000000FF;
-                                    int red = (rgb >> 16) & 0x000000FF;
-                                    int green = (rgb >> 8) & 0x000000FF;
-                                    int blue = (rgb) & 0x000000FF;
+                                    int alpha = rgb >> 24 & 0x000000FF;
+                                    int red = rgb >> 16 & 0x000000FF;
+                                    int green = rgb >> 8 & 0x000000FF;
+                                    int blue = rgb & 0x000000FF;
 
                                     GL11.glColor4d(red / 128D, green / 128D, blue / 128D, alpha / 256D);
 
                                     // Draw cube
-                                    RenderHelper.drawTexturedCube(new Vec3dCube(0.5 - d, y / height, x / width, 0.5 + d, (y + 1) / height,
-                                            (x + 1) / width), icon.getInterpolatedU((16 * x) / width), icon.getInterpolatedV((16 * y)
-                                            / height), icon.getInterpolatedU((16 * (x + 1)) / width), icon.getInterpolatedV((16 * (y + 1))
-                                            / height));
+                                    /* RenderHelper.drawTexturedCube(new Vec3dCube(0.5 - d, y / height, x / width, 0.5 + d, (y + 1) / height,
+                                             (x + 1) / width), icon.getInterpolatedU((16 * x) / width), icon.getInterpolatedV((16 * y)
+                                             / height), icon.getInterpolatedU((16 * (x + 1)) / width), icon.getInterpolatedV((16 * (y + 1))
+                                             / height));*/
 
                                     GL11.glColor4d(1, 1, 1, 1);
                                 }
@@ -104,14 +101,14 @@ public class RenderItem3D implements IItemRenderer {
                         for (int y = 0; y < height; y++) {
                             int drgb = depth.getRGB(x, y);
                             // Extract red from the pixel depth
-                            int depthVal = (drgb & 0xFF);
+                            int depthVal = drgb & 0xFF;
                             // Turn it into the actual item depth
-                            double d = (depthVal / 256D) / 16D;
+                            double d = depthVal / 256D / 16D;
 
                             // Draw cube
-                            RenderHelper.drawTexturedCube(new Vec3dCube(0.5 - d, y / height, x / width, 0.5 + d, (y + 1) / height, (x + 1)
-                                            / width), base.getInterpolatedU((16 * x) / width), base.getInterpolatedV((16 * y) / height),
-                                    base.getInterpolatedU((16 * (x + 1)) / width), base.getInterpolatedV((16 * (y + 1)) / height));
+                            /*   RenderHelper.drawTexturedCube(new Vec3dCube(0.5 - d, y / height, x / width, 0.5 + d, (y + 1) / height, (x + 1) / width),
+                                       base.getInterpolatedU(16 * x / width), base.getInterpolatedV(16 * y / height),
+                                       base.getInterpolatedU(16 * (x + 1) / width), base.getInterpolatedV(16 * (y + 1) / height));*/
                         }
                     }
                     GL11.glEnd();
@@ -127,23 +124,23 @@ public class RenderItem3D implements IItemRenderer {
         {
 
             switch (type) {
-                case ENTITY:
-                    break;
-                case EQUIPPED:
-                    GL11.glTranslated(0, 0.5, 0);
-                    break;
-                case EQUIPPED_FIRST_PERSON:
-                    GL11.glTranslated(-0.75, 1.25, 0.75);
-                    GL11.glRotated(-30, 0, 1, 0);
-                    GL11.glRotated(-30, 1, 0, 0);
-                    break;
-                case INVENTORY:
-                    GL11.glRotated(-45, 0, 1, 0);
-                    GL11.glRotated(15, 0, 0, 1);
-                    GL11.glScaled(2, 2, 2);
-                    break;
-                default:
-                    break;
+            case ENTITY:
+                break;
+            case EQUIPPED:
+                GL11.glTranslated(0, 0.5, 0);
+                break;
+            case EQUIPPED_FIRST_PERSON:
+                GL11.glTranslated(-0.75, 1.25, 0.75);
+                GL11.glRotated(-30, 0, 1, 0);
+                GL11.glRotated(-30, 1, 0, 0);
+                break;
+            case INVENTORY:
+                GL11.glRotated(-45, 0, 1, 0);
+                GL11.glRotated(15, 0, 0, 1);
+                GL11.glScaled(2, 2, 2);
+                break;
+            default:
+                break;
             }
 
             GL11.glScaled(0.75, 0.75, 0.75);

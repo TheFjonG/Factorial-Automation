@@ -1,6 +1,5 @@
 package com.thefjong.factorialautomation.tileentities.machines;
 
-import uk.co.qmunity.lib.tileentity.TileBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -10,6 +9,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
+import uk.co.qmunity.lib.tile.TileBase;
 
 import com.thefjong.factorialautomation.blocks.ModBlocks;
 import com.thefjong.factorialautomation.powersystem.IPowerEmitter;

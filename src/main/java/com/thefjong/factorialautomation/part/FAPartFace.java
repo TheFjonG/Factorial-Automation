@@ -1,8 +1,9 @@
 package com.thefjong.factorialautomation.part;
 
-import uk.co.qmunity.lib.part.IPartFace;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+import uk.co.qmunity.lib.part.IPartFace;
+
 /**
  * 
  * @author Amadornes
@@ -18,12 +19,13 @@ public abstract class FAPartFace extends FAPart implements IPartFace {
         return face;
     }
 
-    @Override
+    //   @Override
     public boolean canStay() {
 
         return getWorld().isSideSolid(getX() + getFace().offsetX, getY() + getFace().offsetY, getZ() + getFace().offsetZ, getFace().getOpposite());
     }
 
+    @Override
     public void setFace(ForgeDirection face) {
 
         this.face = face;
@@ -41,13 +43,13 @@ public abstract class FAPartFace extends FAPart implements IPartFace {
         face = ForgeDirection.getOrientation(tag.getInteger("face"));
     }
 
-    @Override
+    //@Override
     public void writeUpdateToNBT(NBTTagCompound tag) {
 
         tag.setInteger("face", face.ordinal());
     }
 
-    @Override
+    //  @Override
     public void readUpdateFromNBT(NBTTagCompound tag) {
 
         face = ForgeDirection.getOrientation(tag.getInteger("face"));

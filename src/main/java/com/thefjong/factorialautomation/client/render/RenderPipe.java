@@ -1,10 +1,5 @@
 package com.thefjong.factorialautomation.client.render;
 
-import com.thefjong.factorialautomation.reference.Reference;
-import com.thefjong.factorialautomation.tileentities.machines.TilePipe;
-
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -21,7 +16,13 @@ import net.minecraftforge.fluids.IFluidHandler;
 
 import org.lwjgl.opengl.GL11;
 
-import uk.co.qmunity.lib.tileentity.TileBase;
+import uk.co.qmunity.lib.tile.TileBase;
+
+import com.thefjong.factorialautomation.reference.Reference;
+import com.thefjong.factorialautomation.tileentities.machines.TilePipe;
+
+import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 
 /**
  *
@@ -32,7 +33,8 @@ public class RenderPipe extends TileEntitySpecialRenderer implements ISimpleBloc
 
     public static final IModelCustom PIPE_MODEL = AdvancedModelLoader.loadModel(new ResourceLocation(Reference.MODID + ":models/pipe.obj"));
     public static final IModelCustom PIPE_BEND_MODEL = AdvancedModelLoader.loadModel(new ResourceLocation(Reference.MODID + ":models/pipe_bend.obj"));
-    public static final IModelCustom PIPE_JUNCTION_MODEL = AdvancedModelLoader.loadModel(new ResourceLocation(Reference.MODID + ":models/pipe_junction.obj"));
+    public static final IModelCustom PIPE_JUNCTION_MODEL = AdvancedModelLoader.loadModel(new ResourceLocation(Reference.MODID
+            + ":models/pipe_junction.obj"));
 
     public static final int RENDER_ID = RenderingRegistry.getNextAvailableRenderId();
     public static Block currentBlockToRender = Blocks.stone;
@@ -100,14 +102,15 @@ public class RenderPipe extends TileEntitySpecialRenderer implements ISimpleBloc
         //TODO Preemptive TODO as this will DEFINITELY need to be cleaned up / rewritten
 
         int connectionCount = 0;
-        for (int i=0; i<tilePipe.visualConnectionCache.length; i++) {
-            if (tilePipe.visualConnectionCache[i]) connectionCount++;
+        for (boolean element : tilePipe.visualConnectionCache) {
+            if (element)
+                connectionCount++;
         }
 
         if (connectionCount == 0) {
             PIPE_MODEL.renderAll();
         } else if (connectionCount == 1) {
-            for (int i=0; i<tilePipe.visualConnectionCache.length; i++) {
+            for (int i = 0; i < tilePipe.visualConnectionCache.length; i++) {
                 if (tilePipe.visualConnectionCache[i]) {
                     ForgeDirection forgeDirection = ForgeDirection.getOrientation(i);
 
@@ -126,7 +129,7 @@ public class RenderPipe extends TileEntitySpecialRenderer implements ISimpleBloc
             ForgeDirection connection1 = null;
             ForgeDirection connection2 = null;
 
-            for (int i=0; i<tilePipe.visualConnectionCache.length; i++) {
+            for (int i = 0; i < tilePipe.visualConnectionCache.length; i++) {
                 if (tilePipe.visualConnectionCache[i]) {
                     if (connection1 == null)
                         connection1 = ForgeDirection.getOrientation(i);
@@ -134,24 +137,25 @@ public class RenderPipe extends TileEntitySpecialRenderer implements ISimpleBloc
                         connection2 = ForgeDirection.getOrientation(i);
                 }
             }
-            
-            if(connection1 == ForgeDirection.SOUTH && connection2 == ForgeDirection.UP || connection2 == ForgeDirection.SOUTH && connection1 == ForgeDirection.UP){
-               
+
+            if (connection1 == ForgeDirection.SOUTH && connection2 == ForgeDirection.UP || connection2 == ForgeDirection.SOUTH
+                    && connection1 == ForgeDirection.UP) {
+
                 GL11.glRotated(180, 0, 1, 0);
-            }else
-            if(connection1 == ForgeDirection.NORTH && connection2 == ForgeDirection.UP || connection2 == ForgeDirection.NORTH && connection1 == ForgeDirection.UP){
-                
+            } else if (connection1 == ForgeDirection.NORTH && connection2 == ForgeDirection.UP || connection2 == ForgeDirection.NORTH
+                    && connection1 == ForgeDirection.UP) {
+
                 GL11.glRotated(180, 0, 1, 0);
-            }else
-            if(connection1 == ForgeDirection.SOUTH && connection2 == ForgeDirection.DOWN || connection2 == ForgeDirection.SOUTH && connection1 == ForgeDirection.DOWN){
-                
+            } else if (connection1 == ForgeDirection.SOUTH && connection2 == ForgeDirection.DOWN || connection2 == ForgeDirection.SOUTH
+                    && connection1 == ForgeDirection.DOWN) {
+
                 GL11.glRotated(180, 0, 1, 0);
-            }else
-            if(connection1 == ForgeDirection.NORTH && connection2 == ForgeDirection.DOWN || connection2 == ForgeDirection.NORTH && connection1 == ForgeDirection.DOWN){
-                
-                GL11.glRotated(180, 0, 1, 0); 
+            } else if (connection1 == ForgeDirection.NORTH && connection2 == ForgeDirection.DOWN || connection2 == ForgeDirection.NORTH
+                    && connection1 == ForgeDirection.DOWN) {
+
+                GL11.glRotated(180, 0, 1, 0);
             }
-            
+
             if (connection1.getOpposite() == connection2 || connection2.getOpposite() == connection1) {
                 if (connection1 == ForgeDirection.NORTH || connection1 == ForgeDirection.SOUTH) {
                     // NO ROTATION
@@ -183,30 +187,37 @@ public class RenderPipe extends TileEntitySpecialRenderer implements ISimpleBloc
 
                 if (rotation != ForgeDirection.UNKNOWN) {
                     switch (rotation) {
-                        case SOUTH:
-                            if (!flip) GL11.glRotated(180, 0, 1, 0);
-                            break;
-                        case NORTH:
-                            if (flip) GL11.glRotated(180, 0, 1, 0);
-                            break;
-                        case EAST:
-                            GL11.glRotated(flip ? -90 : 90, 0, 1, 0);
-                            break;
-                        case WEST:
-                            GL11.glRotated(flip ? 90 : -90, 0, 1, 0);
-                            break;
+                    case SOUTH:
+                        if (!flip)
+                            GL11.glRotated(180, 0, 1, 0);
+                        break;
+                    case NORTH:
+                        if (flip)
+                            GL11.glRotated(180, 0, 1, 0);
+                        break;
+                    case EAST:
+                        GL11.glRotated(flip ? -90 : 90, 0, 1, 0);
+                        break;
+                    case WEST:
+                        GL11.glRotated(flip ? 90 : -90, 0, 1, 0);
+                        break;
                     }
-                    if (flip) GL11.glRotated(180, 1, 0, 0);
+                    if (flip)
+                        GL11.glRotated(180, 1, 0, 0);
                 } else {
-                    if ((connection1 == ForgeDirection.NORTH && connection2 == ForgeDirection.WEST) || (connection1 == ForgeDirection.WEST || connection2 == ForgeDirection.NORTH)) {
+                    if (connection1 == ForgeDirection.NORTH && connection2 == ForgeDirection.WEST || connection1 == ForgeDirection.WEST
+                            || connection2 == ForgeDirection.NORTH) {
                         GL11.glRotated(90, 0, 0, 1);
                         GL11.glRotated(180, 1, 0, 0);
-                    } else if ((connection1 == ForgeDirection.NORTH && connection2 == ForgeDirection.EAST) || (connection1 == ForgeDirection.EAST || connection2 == ForgeDirection.NORTH)) {
+                    } else if (connection1 == ForgeDirection.NORTH && connection2 == ForgeDirection.EAST || connection1 == ForgeDirection.EAST
+                            || connection2 == ForgeDirection.NORTH) {
                         GL11.glRotated(90, 0, 0, 1);
                         GL11.glRotated(90, 1, 0, 0);
-                    } else if ((connection1 == ForgeDirection.SOUTH && connection2 == ForgeDirection.WEST) || (connection1 == ForgeDirection.WEST || connection2 == ForgeDirection.SOUTH)) {
+                    } else if (connection1 == ForgeDirection.SOUTH && connection2 == ForgeDirection.WEST || connection1 == ForgeDirection.WEST
+                            || connection2 == ForgeDirection.SOUTH) {
                         GL11.glRotated(-90, 0, 0, 1);
-                    } else if ((connection1 == ForgeDirection.SOUTH && connection2 == ForgeDirection.EAST) || (connection1 == ForgeDirection.EAST || connection2 == ForgeDirection.SOUTH)) {
+                    } else if (connection1 == ForgeDirection.SOUTH && connection2 == ForgeDirection.EAST || connection1 == ForgeDirection.EAST
+                            || connection2 == ForgeDirection.SOUTH) {
                         GL11.glRotated(-90, 0, 0, 1);
                         GL11.glRotated(-90, 1, 0, 0);
                     }
@@ -224,9 +235,9 @@ public class RenderPipe extends TileEntitySpecialRenderer implements ISimpleBloc
 
     private void renderJunction(boolean[] connectionMap) {
         //TODO Make these names changes to the actual model
-        final String[] newNames = new String[] {"down", "up", "west", "east", "north", "south"};
+        final String[] newNames = new String[] { "down", "up", "west", "east", "north", "south" };
         String[] parts = new String[connectionMap.length + 1];
-        for (int i=0; i<connectionMap.length; i++) {
+        for (int i = 0; i < connectionMap.length; i++) {
             if (connectionMap[i])
                 parts[i] = "junction_" + newNames[i];
             else

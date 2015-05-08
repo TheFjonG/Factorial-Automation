@@ -1,11 +1,11 @@
 package com.thefjong.factorialautomation.blocks;
 
-import com.thefjong.factorialautomation.client.render.IconProvider;
-
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+
+import com.thefjong.factorialautomation.client.render.IconProvider;
 
 public class FluidSteam extends Fluid{
     

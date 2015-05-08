@@ -9,6 +9,7 @@ import uk.co.qmunity.lib.vec.Vec3dCube;
 import com.thefjong.factorialautomation.part.FAPart;
 import com.thefjong.factorialautomation.reference.Reference;
 import com.thefjong.factorialautomation.reference.ReferenceParts;
+
 /**
  * 
  * @author Amadornes
@@ -37,6 +38,12 @@ public class PartPipe extends FAPart {
     public List<Vec3dCube> getSelectionBoxes() {
 
         return Arrays.asList(new Vec3dCube(0, 0, 0, 1, 1, 1));
+    }
+
+    @Override
+    public void onConverted() {
+        // TODO Auto-generated method stub
+
     }
 
 }

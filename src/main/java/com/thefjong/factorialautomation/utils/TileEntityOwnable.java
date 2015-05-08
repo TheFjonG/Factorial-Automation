@@ -1,9 +1,10 @@
 package com.thefjong.factorialautomation.utils;
 
-import uk.co.qmunity.lib.tileentity.TileBase;
 import net.minecraft.nbt.NBTTagCompound;
+import uk.co.qmunity.lib.tile.TileBase;
 
 import com.thefjong.factorialautomation.handlers.KnowledgeHandler;
+
 /**
  *  
  * @author TheFjong

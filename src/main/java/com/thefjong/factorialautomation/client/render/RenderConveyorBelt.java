@@ -12,13 +12,12 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
-import uk.co.qmunity.lib.tileentity.IRotatable;
-
 import com.thefjong.factorialautomation.tileentities.machines.TileConveyorBelt;
 import com.thefjong.factorialautomation.tileentities.machines.TileConveyorBelt.Section;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+
 /**
  * 
  * @author MineMaarten
@@ -54,7 +53,7 @@ public class RenderConveyorBelt extends TileEntitySpecialRenderer implements ISi
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
 
         TileConveyorBelt te = (TileConveyorBelt) world.getTileEntity(x, y, z);
-        ForgeDirection d = ((IRotatable) te).getFacingDirection().getOpposite();
+        ForgeDirection d = te.getFacingDirection().getOpposite();
         renderer.flipTexture = true;
         if (te.getSection() == Section.LEFT) {
             d = d.getRotation(ForgeDirection.UP);

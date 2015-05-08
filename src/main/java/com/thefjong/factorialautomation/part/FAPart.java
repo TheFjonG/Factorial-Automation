@@ -3,10 +3,15 @@ package com.thefjong.factorialautomation.part;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.IItemRenderer.ItemRenderType;
 import uk.co.qmunity.lib.part.IPart;
 import uk.co.qmunity.lib.part.IPartCollidable;
 import uk.co.qmunity.lib.part.IPartOccluding;
-import uk.co.qmunity.lib.part.IPartRenderable;
 import uk.co.qmunity.lib.part.IPartSelectable;
 import uk.co.qmunity.lib.part.IPartUpdateListener;
 import uk.co.qmunity.lib.part.PartBase;
@@ -15,20 +20,15 @@ import uk.co.qmunity.lib.raytrace.RayTracer;
 import uk.co.qmunity.lib.vec.Vec3d;
 import uk.co.qmunity.lib.vec.Vec3dCube;
 import uk.co.qmunity.lib.vec.Vec3i;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.IItemRenderer.ItemRenderType;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+
 /**
  * 
  * @author Amadornes
  *
  */
-public abstract class FAPart extends PartBase implements IPartSelectable, IPartCollidable, IPartOccluding, IPartRenderable,IPartUpdateListener {
+public abstract class FAPart extends PartBase implements IPartSelectable, IPartCollidable, IPartOccluding/*, IPartRenderable*/, IPartUpdateListener {
 
     public abstract String getUnlocalizedName();
 
@@ -43,7 +43,7 @@ public abstract class FAPart extends PartBase implements IPartSelectable, IPartC
         return partInfo.getItem().copy();
     }
 
-    @Override
+    // @Override
     public boolean renderStatic(Vec3i translation, RenderBlocks renderer, int pass) {
 
         return false;
@@ -129,13 +129,13 @@ public abstract class FAPart extends PartBase implements IPartSelectable, IPartC
 
     }
 
-    @Override
+    // @Override
     public boolean onActivated(EntityPlayer player, ItemStack item) {
 
         return false;
     }
 
-    @Override
+    // @Override
     public void onClicked(EntityPlayer player, ItemStack item) {
 
     }
