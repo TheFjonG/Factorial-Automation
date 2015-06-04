@@ -16,6 +16,8 @@ import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
 
+import uk.co.qmunity.lib.vec.Vec3dCube;
+
 import com.thefjong.factorialautomation.items.ItemBase3D;
 
 public class RenderItem3D implements IItemRenderer {
@@ -80,11 +82,11 @@ public class RenderItem3D implements IItemRenderer {
                                     GL11.glColor4d(red / 128D, green / 128D, blue / 128D, alpha / 256D);
 
                                     // Draw cube
-                                    /* RenderHelper.drawTexturedCube(new Vec3dCube(0.5 - d, y / height, x / width, 0.5 + d, (y + 1) / height,
+                                    RenderHelper.drawTexturedCube(new Vec3dCube(0.5 - d, y / height, x / width, 0.5 + d, (y + 1) / height,
                                              (x + 1) / width), icon.getInterpolatedU((16 * x) / width), icon.getInterpolatedV((16 * y)
                                              / height), icon.getInterpolatedU((16 * (x + 1)) / width), icon.getInterpolatedV((16 * (y + 1))
-                                             / height));*/
-
+                                             / height));
+                                    RenderHelper.instance.renderBox(new Vec3dCube(0.5 - d, y / height, x / width, 0.5 + d, (y + 1) / height,(x + 1) / width), icon);
                                     GL11.glColor4d(1, 1, 1, 1);
                                 }
                             }
@@ -106,9 +108,10 @@ public class RenderItem3D implements IItemRenderer {
                             double d = depthVal / 256D / 16D;
 
                             // Draw cube
-                            /*   RenderHelper.drawTexturedCube(new Vec3dCube(0.5 - d, y / height, x / width, 0.5 + d, (y + 1) / height, (x + 1) / width),
+                             RenderHelper.drawTexturedCube(new Vec3dCube(0.5 - d, y / height, x / width, 0.5 + d, (y + 1) / height, (x + 1) / width),
                                        base.getInterpolatedU(16 * x / width), base.getInterpolatedV(16 * y / height),
-                                       base.getInterpolatedU(16 * (x + 1) / width), base.getInterpolatedV(16 * (y + 1) / height));*/
+                                       base.getInterpolatedU(16 * (x + 1) / width), base.getInterpolatedV(16 * (y + 1) / height));
+                            
                         }
                     }
                     GL11.glEnd();

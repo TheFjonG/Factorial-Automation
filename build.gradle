@@ -35,7 +35,7 @@ group= "factorialautomation" // http://maven.apache.org/guides/mini/guide-naming
 archivesBaseName = "FactorialAutomation"
 
 minecraft {
-    version = "1.7.10-10.13.1.1217"
+    version = "1.7.10-10.13.3.1400-1.7.10"
     runDir = "eclipse/run"
 }
 
@@ -57,7 +57,7 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 	
-	 compile "qmunity:QmunityLib:0.1.25:deobf"
+	 compile "qmunity:QmunityLib:0.1.114:deobf"
 
 }
 sourceSets {
