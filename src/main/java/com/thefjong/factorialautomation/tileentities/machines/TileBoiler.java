@@ -173,6 +173,8 @@ public class TileBoiler extends TileBase implements IFluidHandler, IInventory {
 
         if (fuelAmount < 0)
             fuelAmount = 0;
+        
+        
         super.updateEntity();
     }
 

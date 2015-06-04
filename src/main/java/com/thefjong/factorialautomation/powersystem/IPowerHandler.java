@@ -1,7 +1,6 @@
 package com.thefjong.factorialautomation.powersystem;
 
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 
 /**
  * 
@@ -13,17 +12,12 @@ public interface IPowerHandler {
     /**
      * @return Current Energy Stored
      */
-    public int getEnergyAmount();
+    public int getEnergyStored();
 
     /**
-     * @return Max Capacity
+     * @return Capacity
      */
     public int getCapacity();
-
-    /**
-     * @return worldObj;
-     */
-    public World getWorldObj();
 
     /**
      * @return The TileEntity

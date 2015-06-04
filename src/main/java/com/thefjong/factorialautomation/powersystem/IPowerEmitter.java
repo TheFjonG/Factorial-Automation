@@ -10,8 +10,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 public interface IPowerEmitter extends IPowerHandler {
 
     /**
-     * @param direction
-     * @return Whether the emitter emit or not
+     * @param Direction
+     * @return Whether the emitter can emit from specified side
      */
     public boolean canEmitEnergy(ForgeDirection direction);
 

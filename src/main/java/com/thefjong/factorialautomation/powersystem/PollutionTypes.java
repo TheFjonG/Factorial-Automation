@@ -5,6 +5,6 @@ package com.thefjong.factorialautomation.powersystem;
  * @author TheFjong
  *
  */
-public enum EnumEmitterType {
+public enum PollutionTypes {
     CLEAN, POLLUTION_LOW, POLLUTION_MEDIUM, POLLUTION_HIGH
 }

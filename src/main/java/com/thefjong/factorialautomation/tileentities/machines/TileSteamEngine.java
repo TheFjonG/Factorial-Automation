@@ -106,7 +106,7 @@ public class TileSteamEngine extends TileBase implements IFluidHandler, IPowerEm
     public int energyAmount;
 
     @Override
-    public int getEnergyAmount() {
+    public int getEnergyStored() {
 
         return energyAmount;
     }

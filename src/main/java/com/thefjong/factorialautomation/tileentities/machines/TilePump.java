@@ -42,7 +42,7 @@ public class TilePump extends TileBase implements IFluidHandler {
     }
 
     @Override
-    protected void writeToPacketNBT(NBTTagCompound tCompound) {
+    public void writeToPacketNBT(NBTTagCompound tCompound) {
         super.writeToPacketNBT(tCompound);
         for (int i = 0; i < visualConnectionCache.length; i++) {
             tCompound.setBoolean("connectionCache_" + i, visualConnectionCache[i]);
@@ -50,7 +50,7 @@ public class TilePump extends TileBase implements IFluidHandler {
     }
 
     @Override
-    protected void readFromPacketNBT(NBTTagCompound tCompound) {
+    public void readFromPacketNBT(NBTTagCompound tCompound) {
         super.readFromPacketNBT(tCompound);
 
         visualConnectionCache = new boolean[6];

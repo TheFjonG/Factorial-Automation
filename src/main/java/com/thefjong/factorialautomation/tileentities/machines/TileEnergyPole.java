@@ -10,10 +10,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import uk.co.qmunity.lib.tile.TileBase;
 
-import com.thefjong.factorialautomation.powersystem.IPowerAcceptor;
 import com.thefjong.factorialautomation.powersystem.IPowerEmitter;
 import com.thefjong.factorialautomation.powersystem.IPowerHandler;
 import com.thefjong.factorialautomation.powersystem.IPowerPole;
+import com.thefjong.factorialautomation.powersystem.IPowerReceiver;
 import com.thefjong.factorialautomation.utils.ChatMessageUtil;
 
 /**
@@ -64,7 +64,7 @@ public class TileEnergyPole extends TileBase implements IPowerPole {
     }
 
     @Override
-    public int getEnergyAmount() {
+    public int getEnergyStored() {
 
         return energyAmount;
     }
@@ -76,13 +76,13 @@ public class TileEnergyPole extends TileBase implements IPowerPole {
     }
 
     @Override
-    public boolean canAcceptEnergy(ForgeDirection direction) {
+    public boolean canReceiveEnergy(ForgeDirection direction) {
 
         return false;
     }
 
     @Override
-    public int fillEnergy(ForgeDirection from, int maxFill, boolean doFill) {
+    public int receiveEnergy(ForgeDirection from, int maxFill, boolean doFill) {
         if (worldObj.isRemote)
             return 0;
 
@@ -215,16 +215,16 @@ public class TileEnergyPole extends TileBase implements IPowerPole {
             for (int i = 0; i < tiles.size(); i++) {
                 IPowerHandler tile = tiles.get(i);
                 if (tile instanceof TileEnergyPole) {
-                    if (getEnergyAmount() > tile.getEnergyAmount() && tile.getEnergyAmount() < tile.getCapacity()) {
-                        int amount = (getEnergyAmount() - tile.getEnergyAmount()) / 2;
-                        amount = ((TileEnergyPole) tile).fillEnergy(ForgeDirection.UNKNOWN, amount, true);
+                    if (getEnergyStored() > tile.getEnergyStored() && tile.getEnergyStored() < tile.getCapacity()) {
+                        int amount = (getEnergyStored() - tile.getEnergyStored()) / 2;
+                        amount = ((TileEnergyPole) tile).receiveEnergy(ForgeDirection.UNKNOWN, amount, true);
                         drainEnergy(ForgeDirection.UNKNOWN, amount, true);
                     }
                     continue;
                 }
                 if (tile instanceof IPowerEmitter) {
-                    if (getEnergyAmount() < getCapacity() && tile.getEnergyAmount() > 0) {
-                        int amount = fillEnergy(ForgeDirection.UNKNOWN, tile.getEnergyAmount(), true);
+                    if (getEnergyStored() < getCapacity() && tile.getEnergyStored() > 0) {
+                        int amount = receiveEnergy(ForgeDirection.UNKNOWN, tile.getEnergyStored(), true);
                         System.out.println(amount);
                         if (((IPowerEmitter) tile).canEmitEnergy(ForgeDirection.UNKNOWN)) {
                             ((IPowerEmitter) tile).drainEnergy(ForgeDirection.UNKNOWN, amount, true);
@@ -232,9 +232,9 @@ public class TileEnergyPole extends TileBase implements IPowerPole {
                     }
                     continue;
                 }
-                if (tile instanceof IPowerAcceptor) {
-                    if (tile.getEnergyAmount() < tile.getCapacity() && getEnergyAmount() > 0) {
-                        int amount = ((IPowerAcceptor) tile).fillEnergy(ForgeDirection.UNKNOWN, getEnergyAmount(), true);
+                if (tile instanceof IPowerReceiver) {
+                    if (tile.getEnergyStored() < tile.getCapacity() && getEnergyStored() > 0) {
+                        int amount = ((IPowerReceiver) tile).receiveEnergy(ForgeDirection.UNKNOWN, getEnergyStored(), true);
                         drainEnergy(ForgeDirection.UNKNOWN, amount, true);
                     }
                     continue;
